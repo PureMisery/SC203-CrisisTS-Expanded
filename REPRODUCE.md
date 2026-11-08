@@ -10,7 +10,10 @@ This is a partial baseline. The authors' Drive folder has more than 50 images an
 
 ## Run on Colab
 
-Open [colab_baseline.ipynb](colab_baseline.ipynb) in Google Colab and select a GPU runtime. Run cells from top to bottom. The notebook clones the upstream source, installs dependencies, downloads the author checkpoint and an available subset of LSUN Cat images, replaces obsolete `flash-attn` with PyTorch scaled dot product attention, and executes the baseline on the downloaded images. Outputs appear under `/content/CM4IR/exp/image_samples/` and are lost when the Colab runtime expires unless copied elsewhere.
+Open [colab_baseline.ipynb](colab_baseline.ipynb) in Google Colab and select a GPU runtime. Run cells from top to bottom. The notebook clones this public repository, installs dependencies, downloads the author checkpoint and an available subset of LSUN Cat images, and executes the baseline. The source includes a PyTorch scaled dot product attention fallback for current Colab runtimes.
+
+The [runner](scripts/run_lsun_cat_sr4.py) writes outputs under `exp/image_samples/` and a JSON manifest plus combined log under `exp/repro_runs/`. The manifest records the source commit, exact image names and SHA-256 hashes, checkpoint hash, command, counts, and metrics. It fails if the model silently exits or produces fewer images than requested. Use `--limit 1` for a smoke test, or omit it to run every downloaded image. Choose a fresh `--output-name` for each run. Colab runtime files expire unless downloaded or copied elsewhere.
+The notebook's last cell packages the images, manifest, log, and package list into a ZIP for download.
 
 Colab notebook used for the verified run: https://colab.research.google.com/drive/1AnxTVDhjrXW-oOr36B8UfAw-_KBKZvY4
 

@@ -10,6 +10,8 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+import torch
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DATASET = ROOT / "exp/datasets/lsun_cat/cat"
@@ -62,6 +64,8 @@ def main():
             ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
         ).strip(),
         "python": platform.python_version(),
+        "torch": torch.__version__,
+        "gpu": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
         "dataset_total_available": len(images),
         "dataset_used": count,
         "dataset_files": [
