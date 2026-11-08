@@ -1,0 +1,9 @@
+exp/logs/
+exp/datasets/
+exp/image_samples/
+__pycache__/
+*.pyc
+.venv/
+*.pt
+*.pth
+*.ckpt
