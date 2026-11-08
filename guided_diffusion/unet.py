@@ -341,7 +341,10 @@ class QKVFlashAttention(nn.Module):
         **kwargs,
     ) -> None:
         from einops import rearrange
-        from flash_attn.flash_attention import FlashAttention
+        try:
+            from flash_attn.flash_attention import FlashAttention
+        except ImportError:
+            FlashAttention = None
 
         assert batch_first
         factory_kwargs = {"device": device, "dtype": dtype}
@@ -356,8 +359,9 @@ class QKVFlashAttention(nn.Module):
         self.head_dim = self.embed_dim // num_heads
         assert self.head_dim in [16, 32, 64], "Only support head_dim == 16, 32, or 64"
 
-        self.inner_attn = FlashAttention(
-            attention_dropout=attention_dropout, **factory_kwargs
+        self.inner_attn = (
+            FlashAttention(attention_dropout=attention_dropout, **factory_kwargs)
+            if FlashAttention is not None else None
         )
         self.rearrange = rearrange
 
@@ -366,12 +370,20 @@ class QKVFlashAttention(nn.Module):
             qkv, "b (three h d) s -> b s three h d", three=3, h=self.num_heads
         )
         qkv = qkv.contiguous()
-        qkv, _ = self.inner_attn(
-            qkv,
-            key_padding_mask=key_padding_mask,
-            need_weights=need_weights,
-            causal=self.causal,
-        )
+        if self.inner_attn is None:
+            if key_padding_mask is not None or need_weights:
+                raise NotImplementedError("SDPA fallback does not support attention masks or weights")
+            q, k, v = (x.transpose(1, 2) for x in qkv.unbind(dim=2))
+            qkv = F.scaled_dot_product_attention(
+                q, k, v, dropout_p=0.0, is_causal=self.causal
+            ).transpose(1, 2)
+        else:
+            qkv, _ = self.inner_attn(
+                qkv,
+                key_padding_mask=key_padding_mask,
+                need_weights=need_weights,
+                causal=self.causal,
+            )
         return self.rearrange(qkv, "b s h d -> b (h d) s")
 
 
