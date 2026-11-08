@@ -1,3 +1,7 @@
+# Reproduction on Google Colab
+
+This fork adds a [Colab notebook](colab_baseline.ipynb) and a [verified run report](RUN_REPORT.md) for the CM4IR LSUN Cat super-resolution baseline. See [REPRODUCE.md](REPRODUCE.md) for the exact scope and instructions. The run covers 57 author-provided images; it is not a reproduction of every paper result.
+
 # Zero-Shot Image Restoration Using Few-Step Guidance of Consistency Models (and Beyond)
 
 ## 📖[**Paper**](https://arxiv.org/abs/2412.20596.pdf) (CVPR 2025)
