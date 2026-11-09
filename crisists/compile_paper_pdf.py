@@ -88,8 +88,8 @@ def build_academic_pdf(output_pdf_path: str):
         pagesize=letter,
         leftMargin=45,
         rightMargin=45,
-        topMargin=46,
-        bottomMargin=46
+        topMargin=44,
+        bottomMargin=44
     )
 
     styles = getSampleStyleSheet()
@@ -310,13 +310,13 @@ def build_academic_pdf(output_pdf_path: str):
     story.append(Spacer(1, 6))
 
     # Section 1
-    story.append(Paragraph("1. Introduction & Pedagogical Motivation", h1_style))
+    story.append(Paragraph("1. Introduction", h1_style))
     story.append(Paragraph(
-        "A foundational tenet of the scientific method in artificial intelligence is that empirical claims must be supported by adequate sample sizes, leak-free validation protocols, and rigorous hypothesis testing. The predecessor project for this course (<i>SC203-Flood-HCM</i>) attempted hydrological flood forecasting using an ad-hoc local dataset of only <i>N</i> = 147 samples with 24 engineered features. That study suffered from severe mathematical collapse: the test <i>R</i><sup>2</sup> plunged to −0.1234 (performing worse than a naive mean predictor) due to the Curse of Dimensionality (<i>N</i>/<i>p</i> ≈ 6.1), and 69.2% of the total sum of squared errors was driven by just 4 outlier measurements in catchment station <code>SRC_26</code>.",
+        "Rapid situational awareness during extreme natural disasters is vital for emergency triage and life-critical rescue dispatch. In modern crisis informatics, two complementary data modalities have emerged: high-frequency, subjective microblog streams from affected populations (e.g., Twitter/X) and continuous, objective physical observations from planetary earth systems (e.g., atmospheric sensors). While social media text provides immediate qualitative reports from ground eyewitnesses, it suffers from severe noise, rumor proliferation, and situational ambiguity. Conversely, meteorological sensor networks offer ground-truth physical telemetry but lack semantic granularity regarding human vulnerability and infrastructure damage.",
         body_style
     ))
     story.append(Paragraph(
-        "To satisfy the rigorous empirical standards of SC203, we transitioned to the premier international literature: the <b>CrisisTS</b> benchmark presented at the <b>63rd Annual Meeting of the Association for Computational Linguistics (ACL 2025)</b> by Meunier et al. (<i>2025.acl-long.783</i>). CrisisTS pairs microblog reports from the UN OCHA/HumAID corpora with 5-day multivariate ERA5 meteorological reanalysis vectors across 11 physical channels (temperature, precipitation, surface pressure, wind vectors, etc.). While conceptually pioneering, our audit revealed critical flaws in the upstream pipeline that distorted the benchmark's reported findings.",
+        "To bridge this gap, recent research has coupled social media streams with planetary environmental reanalysis. A premier milestone is the <b>CrisisTS</b> benchmark presented at the <b>63rd Annual Meeting of the Association for Computational Linguistics (ACL 2025)</b> by Meunier et al. (<i>2025.acl-long.783</i>). CrisisTS pairs microblog posts from the UN OCHA/HumAID corpora with 5-day multivariate ERA5 meteorological reanalysis vectors across 11 physical channels (temperature, surface pressure, precipitation, and wind vectors). While conceptually groundbreaking, our empirical audit reveals critical upstream pipeline defects, pervasive data leakage, and severe domain collapse across divergent disaster regimes. In this work, we systematically audit the benchmark, rectify its ingestion pipeline, expand the corpus across 19 global disasters (<i>N</i> = 17,628 and <i>N</i> = 76,481), and propose a domain-invariant multimodal architecture with distribution-free conformal risk guarantees.",
         body_style
     ))
 
