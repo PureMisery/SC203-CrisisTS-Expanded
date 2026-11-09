@@ -130,17 +130,27 @@ class DynamicModalityGatingMoE:
         return p_fused
 
     def fit_calibration(self, p_txt_oof: np.ndarray, p_meta_oof: np.ndarray, shock_energy_oof: np.ndarray, y_true: np.ndarray):
+        p_sorted = np.sort(p_txt_oof, axis=1)
+        m_txt = p_sorted[:, -1] - p_sorted[:, -2]
+        denom = np.log(max(2, p_txt_oof.shape[1]))
+        h_txt = -np.sum(p_txt_oof * np.log(p_txt_oof + 1e-12), axis=1) / denom
+        e_scaled = shock_energy_oof.flatten() / np.sqrt(55.0)
+        e_clipped = np.minimum(e_scaled, 4.0)
+
         def loss_fn(params):
-            self.w0, self.w1, self.w2, self.w3 = params
-            p_fused = self.fuse(p_txt_oof, p_meta_oof, shock_energy_oof)
+            w0, w1, w2, w3 = params
+            logit = w0 + w1 * m_txt - w2 * h_txt - w3 * e_clipped
+            gate = 1.0 / (1.0 + np.exp(-logit))
+            p_fused = gate[:, None] * p_txt_oof + (1.0 - gate[:, None]) * p_meta_oof
+            p_fused /= np.sum(p_fused, axis=1, keepdims=True)
             preds = np.argmax(p_fused, axis=1)
             return -f1_score(y_true, preds, average="macro", zero_division=0)
 
         init_params = [self.w0, self.w1, self.w2, self.w3]
         bounds = [(-2.0, 2.0), (0.5, 6.0), (0.0, 4.0), (0.0, 3.0)]
         res = minimize(loss_fn, init_params, method="Nelder-Mead", bounds=bounds, options={"maxiter": 35})
-        if res.success:
-            self.w0, self.w1, self.w2, self.w3 = res.x
+        if res.success or res.x is not None:
+            self.w0, self.w1, self.w2, self.w3 = [float(v) for v in res.x]
 
 
 class ConformalRiskController:
@@ -175,12 +185,6 @@ def run_stratified_5fold_76k(df: pd.DataFrame, windows: np.ndarray, total_energy
     X_txt_norm = np.array([normalize_cross_crisis_text(t) for t in X_txt_raw])
     X_ts_feat, _ = extract_domain_invariant_ts_features(windows)
 
-    # Concurrency Burst feature
-    window_counts = df["Window"].value_counts()
-    rho = df["Window"].map(window_counts).values.astype(np.float64)
-    burst_intensity = np.log1p(rho) * (total_energy.flatten() / np.sqrt(55.0))
-    X_ts_full = np.hstack([X_ts_feat, burst_intensity.reshape(-1, 1)])
-
     tasks = [
         ("label_urgent", "Urgency (3-class)"),
         ("label_humanitarian", "Humanitarian (10-class)"),
@@ -209,8 +213,17 @@ def run_stratified_5fold_76k(df: pd.DataFrame, windows: np.ndarray, total_energy
             t_fold = time.time()
             y_tr, y_te = y[tr_idx], y[te_idx]
             txt_tr, txt_te = X_txt_norm[tr_idx], X_txt_norm[te_idx]
-            ts_tr_raw, ts_te_raw = X_ts_full[tr_idx], X_ts_full[te_idx]
             energy_tr, energy_te = total_energy[tr_idx], total_energy[te_idx]
+
+            # In-fold window burst frequency (strictly leak-free)
+            tr_w_counts = pd.Series(df["Window"].iloc[tr_idx]).value_counts()
+            rho_tr = df["Window"].iloc[tr_idx].map(tr_w_counts).fillna(1.0).values.astype(np.float64)
+            rho_te = df["Window"].iloc[te_idx].map(tr_w_counts).fillna(1.0).values.astype(np.float64)
+            burst_tr = np.log1p(rho_tr) * (energy_tr.flatten() / np.sqrt(55.0))
+            burst_te = np.log1p(rho_te) * (energy_te.flatten() / np.sqrt(55.0))
+
+            ts_tr_raw = np.hstack([X_ts_feat[tr_idx], burst_tr.reshape(-1, 1)])
+            ts_te_raw = np.hstack([X_ts_feat[te_idx], burst_te.reshape(-1, 1)])
 
             # Fast high-capacity vectorizer
             vec = FeatureUnion([
@@ -234,32 +247,38 @@ def run_stratified_5fold_76k(df: pd.DataFrame, windows: np.ndarray, total_energy
             m_ts.fit(X_tr_ts, y_tr)
             p_te_ts = m_ts.predict_proba(X_te_ts)
 
-            # 3. Inner 25% calibration split on train fold for meta-learner and MoE weights
-            sss = StratifiedShuffleSplit(n_splits=1, test_size=0.25, random_state=42)
-            for sub_tr, sub_cal in sss.split(X_tr_txt, y_tr):
-                m_txt_sub = LogisticRegression(C=1.0, class_weight="balanced", max_iter=250, random_state=42)
-                m_txt_sub.fit(X_tr_txt[sub_tr], y_tr[sub_tr])
-                p_cal_txt = m_txt_sub.predict_proba(X_tr_txt[sub_cal])
+            # 3. Disjoint inner splits on train fold: 70% sub_tr, 15% sub_meta, 15% sub_conf
+            sss1 = StratifiedShuffleSplit(n_splits=1, test_size=0.30, random_state=42)
+            sub_tr, sub_holdout = next(sss1.split(X_tr_txt, y_tr))
 
-                m_ts_sub = RandomForestClassifier(n_estimators=40, max_depth=12, class_weight="balanced", random_state=42, n_jobs=4)
-                m_ts_sub.fit(X_tr_ts[sub_tr], y_tr[sub_tr])
-                p_cal_ts = m_ts_sub.predict_proba(X_tr_ts[sub_cal])
+            sss2 = StratifiedShuffleSplit(n_splits=1, test_size=0.50, random_state=42)
+            meta_sub_idx, conf_sub_idx = next(sss2.split(X_tr_txt[sub_holdout], y_tr[sub_holdout]))
+            sub_meta = sub_holdout[meta_sub_idx]
+            sub_conf = sub_holdout[conf_sub_idx]
 
-                y_cal = y_tr[sub_cal]
-                energy_cal = energy_tr[sub_cal]
+            m_txt_sub = LogisticRegression(C=1.0, class_weight="balanced", max_iter=250, random_state=42)
+            m_txt_sub.fit(X_tr_txt[sub_tr], y_tr[sub_tr])
 
-            # Fit Stacking Meta Learner
-            meta_cal_feat = np.hstack([p_cal_txt, p_cal_ts, p_cal_txt * p_cal_ts])
+            m_ts_sub = RandomForestClassifier(n_estimators=40, max_depth=12, class_weight="balanced", random_state=42, n_jobs=4)
+            m_ts_sub.fit(X_tr_ts[sub_tr], y_tr[sub_tr])
+
+            p_meta_txt = m_txt_sub.predict_proba(X_tr_txt[sub_meta])
+            p_meta_ts = m_ts_sub.predict_proba(X_tr_ts[sub_meta])
+            y_meta = y_tr[sub_meta]
+            energy_meta = energy_tr[sub_meta]
+
+            # Fit Stacking Meta Learner on sub_meta
+            meta_cal_feat = np.hstack([p_meta_txt, p_meta_ts, p_meta_txt * p_meta_ts])
             meta_te_feat = np.hstack([p_te_txt, p_te_ts, p_te_txt * p_te_ts])
 
             meta_clf = LogisticRegression(C=1.5, class_weight=None, max_iter=300, random_state=42)
-            meta_clf.fit(meta_cal_feat, y_cal)
+            meta_clf.fit(meta_cal_feat, y_meta)
             p_cal_meta = meta_clf.predict_proba(meta_cal_feat)
             p_te_meta = meta_clf.predict_proba(meta_te_feat)
 
             # Q1 Dynamic MoE Gating
             moe = DynamicModalityGatingMoE(w0=0.5, w1=3.0, w2=1.5, w3=0.8)
-            moe.fit_calibration(p_cal_txt, p_cal_meta, energy_cal, y_cal)
+            moe.fit_calibration(p_meta_txt, p_cal_meta, energy_meta, y_meta)
             p_te_moe = moe.fuse(p_te_txt, p_te_meta, energy_te)
 
             pred_txt = np.argmax(p_te_txt, axis=1)
@@ -274,11 +293,17 @@ def run_stratified_5fold_76k(df: pd.DataFrame, windows: np.ndarray, total_energy
             stack_accs.append(accuracy_score(y_te, pred_stack))
             moe_accs.append(accuracy_score(y_te, pred_moe))
 
-            # Conformal Risk Control on Urgent Class
+            # Conformal Risk Control on strictly held-out sub_conf
             if urgent_idx is not None:
-                p_cal_fused = moe.fuse(p_cal_txt, p_cal_meta, energy_cal)
+                p_conf_txt = m_txt_sub.predict_proba(X_tr_txt[sub_conf])
+                p_conf_ts = m_ts_sub.predict_proba(X_tr_ts[sub_conf])
+                meta_conf_feat = np.hstack([p_conf_txt, p_conf_ts, p_conf_txt * p_conf_ts])
+                p_conf_meta = meta_clf.predict_proba(meta_conf_feat)
+                p_conf_fused = moe.fuse(p_conf_txt, p_conf_meta, energy_tr[sub_conf])
+                y_conf = y_tr[sub_conf]
+
                 crc = ConformalRiskController(target_class_idx=urgent_idx, alpha=0.05)
-                crc.calibrate(p_cal_fused, y_cal)
+                crc.calibrate(p_conf_fused, y_conf)
 
                 conf_pred_urgent = crc.predict_conformal_urgent(p_te_moe)
                 y_te_urgent = (y_te == urgent_idx)
@@ -365,8 +390,17 @@ def run_loeo_cv_76k(df: pd.DataFrame, windows: np.ndarray, total_energy: np.ndar
             held_out = groups[te_idx][0]
             y_tr, y_te = y[tr_idx], y[te_idx]
             txt_tr, txt_te = X_txt_norm[tr_idx], X_txt_norm[te_idx]
-            ts_tr_raw, ts_te_raw = X_ts_feat[tr_idx], X_ts_feat[te_idx]
             energy_tr, energy_te = total_energy[tr_idx], total_energy[te_idx]
+
+            # In-fold window burst frequency (strictly leak-free)
+            tr_w_counts = pd.Series(df["Window"].iloc[tr_idx]).value_counts()
+            rho_tr = df["Window"].iloc[tr_idx].map(tr_w_counts).fillna(1.0).values.astype(np.float64)
+            rho_te = df["Window"].iloc[te_idx].map(tr_w_counts).fillna(1.0).values.astype(np.float64)
+            burst_tr = np.log1p(rho_tr) * (energy_tr.flatten() / np.sqrt(55.0))
+            burst_te = np.log1p(rho_te) * (energy_te.flatten() / np.sqrt(55.0))
+
+            ts_tr_raw = np.hstack([X_ts_feat[tr_idx], burst_tr.reshape(-1, 1)])
+            ts_te_raw = np.hstack([X_ts_feat[te_idx], burst_te.reshape(-1, 1)])
 
             vec = FeatureUnion([
                 ("word", TfidfVectorizer(max_features=25000, ngram_range=(1, 2), sublinear_tf=True)),
@@ -414,30 +448,10 @@ def run_loeo_cv_76k(df: pd.DataFrame, windows: np.ndarray, total_energy: np.ndar
             moe.fit_calibration(p_cal_txt, p_cal_meta, energy_cal, y_cal)
             p_te_moe = moe.fuse(p_te_txt, p_te_meta, energy_te)
 
-            # Spatiotemporal Window Concurrency & Background Tail Gating
-            p_te_stack = p_te_meta.copy()
-            p_te_moe_gated = p_te_moe.copy()
-
-            if nh_idx is not None:
-                te_w_counts = pd.Series(df["Window"].values[te_idx]).value_counts()
-                te_wf = pd.Series(df["Window"].values[te_idx]).map(te_w_counts).values.astype(float)
-                has_bg_tail = (te_w_counts <= 3).mean() > 0.45
-
-                if not has_bg_tail:
-                    p_te_stack[:, nh_idx] = 0.0
-                    p_te_moe_gated[:, nh_idx] = 0.0
-                else:
-                    p_te_stack[te_wf > 6, nh_idx] = 0.0
-                    p_te_moe_gated[te_wf > 6, nh_idx] = 0.0
-                    other_cols = [c for c in range(n_classes) if c != nh_idx]
-                    max_other = np.max(p_te_moe[:, other_cols], axis=1)
-                    isolated_bg = (te_wf <= 5) & (max_other < 0.90)
-                    p_te_stack[isolated_bg, nh_idx] += 0.85
-                    p_te_moe_gated[isolated_bg, nh_idx] += 0.85
-
+            p_te_stack = p_te_meta
             pred_txt = np.argmax(p_te_txt, axis=1)
             pred_stack = np.argmax(p_te_stack, axis=1)
-            pred_moe = np.argmax(p_te_moe_gated, axis=1)
+            pred_moe = np.argmax(p_te_moe, axis=1)
 
             f1_txt = f1_score(y_te, pred_txt, average="macro", zero_division=0)
             f1_stack = f1_score(y_te, pred_stack, average="macro", zero_division=0)
@@ -484,8 +498,12 @@ def run_loeo_cv_76k(df: pd.DataFrame, windows: np.ndarray, total_energy: np.ndar
 def main():
     csv_path = "data/CrisisTS_Full_76k.csv"
     if not os.path.exists(csv_path):
-        print(f"Error: {csv_path} not found.", file=sys.stderr)
-        sys.exit(1)
+        gz_path = "data/CrisisTS_Full_76k.csv.gz"
+        if os.path.exists(gz_path):
+            csv_path = gz_path
+        else:
+            print(f"Error: Neither {csv_path} nor {gz_path} found.", file=sys.stderr)
+            sys.exit(1)
 
     print(f"Loading {csv_path}...")
     df = pd.read_csv(csv_path, sep="\t")

@@ -86,7 +86,7 @@ def map_labels(humaid_class: str, crisis_type: str):
     else:
         lbl_useful = "useful"
         lbl_urgent = "not_urgent" if humaid_class == "rescue_volunteering_or_donation_effort" else "urgent"
-        lbl_sudden = "Sudden_Crisis" if crisis_type == "Earthquake" else "Non_Sudden_Crisis"
+        lbl_sudden = "Sudden_Crisis" if crisis_type in ("Earthquake", "Wildfire") else "Non_Sudden_Crisis"
     return lbl_useful, lbl_urgent, lbl_sudden
 
 

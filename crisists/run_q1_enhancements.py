@@ -136,17 +136,27 @@ class DynamicModalityGatingMoE:
 
     def fit_calibration(self, p_txt_oof: np.ndarray, p_meta_oof: np.ndarray, shock_energy_oof: np.ndarray, y_true: np.ndarray):
         """Calibrate gating weights via bounded optimization to maximize Macro-F1 on Out-of-Fold training data."""
+        p_sorted = np.sort(p_txt_oof, axis=1)
+        m_txt = p_sorted[:, -1] - p_sorted[:, -2]
+        denom = np.log(max(2, p_txt_oof.shape[1]))
+        h_txt = -np.sum(p_txt_oof * np.log(p_txt_oof + 1e-12), axis=1) / denom
+        e_scaled = shock_energy_oof.flatten() / np.sqrt(55.0)
+        e_clipped = np.minimum(e_scaled, 4.0)
+
         def loss_fn(params):
-            self.w0, self.w1, self.w2, self.w3 = params
-            p_fused = self.fuse(p_txt_oof, p_meta_oof, shock_energy_oof)
+            w0, w1, w2, w3 = params
+            logit = w0 + w1 * m_txt - w2 * h_txt - w3 * e_clipped
+            gate = 1.0 / (1.0 + np.exp(-logit))
+            p_fused = gate[:, None] * p_txt_oof + (1.0 - gate[:, None]) * p_meta_oof
+            p_fused /= np.sum(p_fused, axis=1, keepdims=True)
             preds = np.argmax(p_fused, axis=1)
             return -f1_score(y_true, preds, average="macro", zero_division=0)
 
         init_params = [self.w0, self.w1, self.w2, self.w3]
         bounds = [(-2.0, 2.0), (0.5, 6.0), (0.0, 4.0), (0.0, 3.0)]
         res = minimize(loss_fn, init_params, method="Nelder-Mead", bounds=bounds, options={"maxiter": 60})
-        if res.success:
-            self.w0, self.w1, self.w2, self.w3 = res.x
+        if res.success or res.x is not None:
+            self.w0, self.w1, self.w2, self.w3 = [float(v) for v in res.x]
 
 
 class ConformalRiskController:
@@ -469,32 +479,10 @@ def run_q1_out_of_type_loeo(df: pd.DataFrame, windows: np.ndarray, total_energy:
             moe.fit_calibration(p_tr_txt_oof, p_tr_meta_oof, energy_tr, y_tr)
             p_te_moe = moe.fuse(p_te_txt, p_te_meta, energy_te)
 
-            # Spatiotemporal Concurrency & Background-Tail Gating for LOEO Cross-Disaster Generalization
-            p_te_stack = p_te_meta.copy()
-            p_te_moe_gated = p_te_moe.copy()
-
-            if nh_idx is not None:
-                te_w_counts = pd.Series(df["Window"].values[te_idx]).value_counts()
-                te_wf = pd.Series(df["Window"].values[te_idx]).map(te_w_counts).values.astype(float)
-                has_bg_tail = (te_w_counts <= 3).mean() > 0.45
-
-                # Active-only streams (Wildfire, Flood) have no background tail: suppress not_humanitarian false positives
-                if not has_bg_tail:
-                    p_te_stack[:, nh_idx] = 0.0
-                    p_te_moe_gated[:, nh_idx] = 0.0
-                else:
-                    # In streams with background tail (Hurricane, Earthquake): dense burst windows are never not_humanitarian
-                    p_te_stack[te_wf > 6, nh_idx] = 0.0
-                    p_te_moe_gated[te_wf > 6, nh_idx] = 0.0
-                    other_cols = [c for c in range(n_classes) if c != nh_idx]
-                    max_other = np.max(p_te_moe[:, other_cols], axis=1)
-                    isolated_bg = (te_wf <= 5) & (max_other < 0.90)
-                    p_te_stack[isolated_bg, nh_idx] += 0.85
-                    p_te_moe_gated[isolated_bg, nh_idx] += 0.85
-
+            p_te_stack = p_te_meta
             pred_txt = np.argmax(p_te_txt, axis=1)
             pred_stack = np.argmax(p_te_stack, axis=1)
-            pred_moe = np.argmax(p_te_moe_gated, axis=1)
+            pred_moe = np.argmax(p_te_moe, axis=1)
 
             f1_txt = f1_score(y_te, pred_txt, average="macro", zero_division=0)
             f1_stack = f1_score(y_te, pred_stack, average="macro", zero_division=0)

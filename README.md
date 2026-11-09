@@ -71,17 +71,23 @@ We rewrote the upstream data engine ([`crisists/build_expanded_dataset.py`](cris
 
 ### 4. Full HumAID Scaling Benchmark across 19 Disasters ($N = 76,481$)
 
-When scaling to the complete 76,481 human-annotated disaster corpus across all 19 global events ([`data/CrisisTS_Full_76k.csv.gz`](data/CrisisTS_Full_76k.csv.gz)):
+When scaling to the complete 76,481 human-annotated disaster corpus across all 19 global events ([`data/CrisisTS_Full_76k.csv.gz`](data/CrisisTS_Full_76k.csv.gz)) under leak-free in-fold window burst features and disjoint split conformal calibration:
 
 | Task Name & Target Column | Text Baseline | M2 Stacking Fusion | Q1 Dynamic MoE | Accuracy | Paired $t$-test (vs Text) | Effect Size (Cohen's $d$) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Urgent Triage** (`label_urgent`, 3-class) | $0.7595 \pm 0.004$ | $0.7635 \pm 0.005$ | **$0.7699 \pm 0.005$** | **84.72%** | $t = 6.71, p = 2.56 \times 10^{-3}$ | **$d = 3.00$ (Large)** |
-| **Humanitarian** (`label_humanitarian`, 10-class) | $0.7189 \pm 0.005$ | $0.7319 \pm 0.009$ | **$0.7333 \pm 0.007$** | **75.35%** | $t = 7.86, p = 1.42 \times 10^{-3}$ | **$d = 3.51$ (Large)** |
-| **Utility** (`label_useful`, 2-class) | $0.7439 \pm 0.008$ | $0.7585 \pm 0.010$ | **$0.7693 \pm 0.011$** | **92.60%** | $t = 13.05, p = 1.99 \times 10^{-4}$ | **$d = 5.84$ (Huge)** |
-| **Onset Dynamics** (`label_sudden`, 3-class) | $0.8112 \pm 0.004$ | $0.8265 \pm 0.004$ | **$0.8325 \pm 0.006$** | **92.47%** | $t = 11.85, p = 2.90 \times 10^{-4}$ | **$d = 5.30$ (Huge)** |
-| **Conformal Urgent Recall** | — | — | **94.65%** | Precision: 82.4% | $\tau_{\text{conformal}} = 0.169$ | Risk bound satisfied |
+| **Urgent Triage** (`label_urgent`, 3-class) | $0.7595 \pm 0.004$ | $0.7641 \pm 0.005$ | **$0.7703 \pm 0.004$** | **84.76%** | $t = 6.90, p = 2.31 \times 10^{-3}$ | **$d = 3.09$ (Very Large)** |
+| **Humanitarian** (`label_humanitarian`, 10-class) | $0.7189 \pm 0.005$ | $0.7309 \pm 0.010$ | **$0.7322 \pm 0.008$** | **75.26%** | $t = 5.78, p = 4.45 \times 10^{-3}$ | **$d = 2.58$ (Very Large)** |
+| **Utility** (`label_useful`, 2-class) | $0.7439 \pm 0.008$ | $0.7578 \pm 0.010$ | **$0.7693 \pm 0.011$** | **92.58%** | $t = 15.10, p = 1.12 \times 10^{-4}$ | **$d = 6.75$ (Huge)** |
+| **Onset Dynamics** (`label_sudden`, 3-class) | $0.8112 \pm 0.004$ | $0.8275 \pm 0.004$ | **$0.8326 \pm 0.006$** | **92.46%** | $t = 12.92, p = 2.07 \times 10^{-4}$ | **$d = 5.78$ (Huge)** |
+| **Conformal Urgent Recall** | — | — | **94.54%** | Precision: 82.56% | $\tau_{\text{conformal}} = 0.174$ | Certified disjoint holdout |
 
-### 4. Direct Comparison to ACL 2025 Paper (Table 2 Protocol)
+#### Out-of-Type Cross-Disaster Generalization (LOEO-CV on $N = 76,481$)
+Under true unconstrained cross-disaster transfer without transductive class-zeroing heuristics:
+- **Urgency (3-class):** Text 70.85% Mean $\to$ **Q1-MoE 72.57% Mean / 71.66% Pooled** (outperforming Text across all 4 disaster types).
+- **Utility (2-class):** Text 67.65% Mean $\to$ **Q1-MoE 72.75% Mean / 71.48% Pooled** ($\Delta = +5.10\%$ gain over Text).
+- **Humanitarian (10-class):** Text 62.94% Mean $\to$ **Q1-MoE 63.21% Mean** (preventing stacking degradation from negative transfer).
+
+### 5. Direct Comparison to ACL 2025 Paper (Table 2 Protocol)
 
 | Benchmark Setting & Corpus | Model Architecture | `Utility` | `Urgency` | `Humanitarian` |
 | :--- | :--- | :---: | :---: | :---: |
