@@ -69,6 +69,18 @@ We rewrote the upstream data engine ([`crisists/build_expanded_dataset.py`](cris
 | **Utility: Q1 Dynamic MoE** | 50.50% | **74.51% (+6.3%)** | **100.00%** | **100.00%** | **81.25% (+1.8%)** | **66.34% (+4.7%)** |
 | **Humanitarian: Q1 Dynamic MoE** | **79.13%** | **77.52% (+1.6%)** | **80.67% (+1.3%)** | **73.67%** | **77.75% (+1.1%)** | **81.04% (+1.4%)** |
 
+### 4. Full HumAID Scaling Benchmark across 19 Disasters ($N = 76,481$)
+
+When scaling to the complete 76,481 human-annotated disaster corpus across all 19 global events ([`data/CrisisTS_Full_76k.csv.gz`](data/CrisisTS_Full_76k.csv.gz)):
+
+| Task Name & Target Column | Text Baseline | M2 Stacking Fusion | Q1 Dynamic MoE | Accuracy | Paired $t$-test (vs Text) | Effect Size (Cohen's $d$) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Urgent Triage** (`label_urgent`, 3-class) | $0.7595 \pm 0.004$ | $0.7635 \pm 0.005$ | **$0.7699 \pm 0.005$** | **84.72%** | $t = 6.71, p = 2.56 \times 10^{-3}$ | **$d = 3.00$ (Large)** |
+| **Humanitarian** (`label_humanitarian`, 10-class) | $0.7189 \pm 0.005$ | $0.7319 \pm 0.009$ | **$0.7333 \pm 0.007$** | **75.35%** | $t = 7.86, p = 1.42 \times 10^{-3}$ | **$d = 3.51$ (Large)** |
+| **Utility** (`label_useful`, 2-class) | $0.7439 \pm 0.008$ | $0.7585 \pm 0.010$ | **$0.7693 \pm 0.011$** | **92.60%** | $t = 13.05, p = 1.99 \times 10^{-4}$ | **$d = 5.84$ (Huge)** |
+| **Onset Dynamics** (`label_sudden`, 3-class) | $0.8112 \pm 0.004$ | $0.8265 \pm 0.004$ | **$0.8325 \pm 0.006$** | **92.47%** | $t = 11.85, p = 2.90 \times 10^{-4}$ | **$d = 5.30$ (Huge)** |
+| **Conformal Urgent Recall** | — | — | **94.65%** | Precision: 82.4% | $\tau_{\text{conformal}} = 0.169$ | Risk bound satisfied |
+
 ### 4. Direct Comparison to ACL 2025 Paper (Table 2 Protocol)
 
 | Benchmark Setting & Corpus | Model Architecture | `Utility` | `Urgency` | `Humanitarian` |
@@ -90,11 +102,14 @@ We rewrote the upstream data engine ([`crisists/build_expanded_dataset.py`](cris
 ├── requirements.txt               # Complete Python dependencies
 ├── README.md                      # Project documentation and reproduction guide
 ├── data/
-│   ├── CrisisTS_Eng.csv           # Original ACL 2025 English dataset (N = 6,923)
+│   ├── CrisisTS_Full_76k.csv.gz   # Complete 19-event HumAID multimodal corpus (N = 76,481)
 │   ├── CrisisTS_Expanded_19Events.csv # Expanded zero-duplicate dataset (N = 17,628)
+│   ├── CrisisTS_Eng.csv           # Original ACL 2025 English dataset (N = 6,923)
 │   └── raw_crisists/              # Raw IDRISI text splits and ERA5 time series
 └── crisists/
-    ├── build_expanded_dataset.py  # End-to-end dataset expansion pipeline
+    ├── build_full_humaid_76k.py   # Ingestion & Snowflake timestamp decoding for 76k samples
+    ├── run_full_76k_benchmark.py  # 5-fold CV & LOEO-CV on full N = 76,481 dataset
+    ├── build_expanded_dataset.py  # Dataset expansion pipeline for N = 17,628
     ├── run_q1_enhancements.py     # Q1 Dynamic MoE & Conformal Risk Control benchmark
     ├── run_paper_comparison_benchmarks.py # Direct head-to-head comparison against ACL 2025
     ├── run_expanded_benchmark.py  # 5-fold CV across 8 models on N = 17,628
@@ -115,19 +130,25 @@ cd SC203-CrisisTS-Expanded
 pip install -r requirements.txt
 ```
 
-### 2. Run the Full Q1 Enhancements Benchmark
+### 2. Run the Full 76k HumAID Multimodal Benchmark ($N = 76,481$)
+Executes 5-Fold Stratified CV and LOEO-CV across all 10 humanitarian classes and urgency triage on $N = 76,481$:
+```bash
+python crisists/run_full_76k_benchmark.py
+```
+
+### 3. Run the Q1 Enhancements Benchmark ($N = 17,628$)
 Executes Stratified 5-Fold CV and Leave-One-Crisis-Type-Out (LOEO-CV) on $N = 17,628$:
 ```bash
 python crisists/run_q1_enhancements.py
 ```
 
-### 3. Run the ACL 2025 Head-to-Head Comparison
+### 4. Run the ACL 2025 Head-to-Head Comparison
 Directly compares against Table 2, 13, 14, 18 of Meunier et al. (2025):
 ```bash
 python crisists/run_paper_comparison_benchmarks.py
 ```
 
-### 4. Re-compile the Academic Research Paper PDF
+### 5. Re-compile the Academic Research Paper PDF
 ```bash
 python crisists/compile_paper_pdf.py
 ```

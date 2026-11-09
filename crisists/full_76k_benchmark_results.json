@@ -1,0 +1,170 @@
+{
+  "dataset": "CrisisTS_Full_76k.csv",
+  "n_samples": 76481,
+  "n_events": 19,
+  "n_crisis_types": 4,
+  "regime_A_stratified_5fold": {
+    "label_urgent": {
+      "text_f1_mean": 0.7594724648582687,
+      "text_f1_std": 0.0037995644762290615,
+      "stack_f1_mean": 0.7634654058153273,
+      "stack_f1_std": 0.004922221891816913,
+      "moe_f1_mean": 0.7698545664760105,
+      "moe_f1_std": 0.005085149730260672,
+      "moe_acc_mean": 0.8472039077793851,
+      "t_stat_vs_text": 6.712579960163152,
+      "p_val_vs_text": 0.0025640212490067866,
+      "cohens_d_vs_text": 3.00195701819752,
+      "elapsed_seconds": 262.9922866821289,
+      "conformal_urgent": {
+        "guaranteed_coverage_target": 0.95,
+        "empirical_test_recall": 0.9464516522557567,
+        "empirical_test_precision": 0.8242023477069038,
+        "mean_tau_conformal": 0.16905405291444903
+      }
+    },
+    "label_humanitarian": {
+      "text_f1_mean": 0.7189177750286334,
+      "text_f1_std": 0.005192456569984648,
+      "stack_f1_mean": 0.7319160107446482,
+      "stack_f1_std": 0.008937083722544904,
+      "moe_f1_mean": 0.7332614903206194,
+      "moe_f1_std": 0.00727986028302737,
+      "moe_acc_mean": 0.7534682592547612,
+      "t_stat_vs_text": 7.855047769685941,
+      "p_val_vs_text": 0.001419157273350284,
+      "cohens_d_vs_text": 3.512884155044843,
+      "elapsed_seconds": 426.43705224990845
+    },
+    "label_useful": {
+      "text_f1_mean": 0.743899548706107,
+      "text_f1_std": 0.007597308957899477,
+      "stack_f1_mean": 0.7584984595731177,
+      "stack_f1_std": 0.009755204959387451,
+      "moe_f1_mean": 0.7692851670768892,
+      "moe_f1_std": 0.010976075878825441,
+      "moe_acc_mean": 0.9259555321715117,
+      "t_stat_vs_text": 13.04768722664143,
+      "p_val_vs_text": 0.0001991584548948014,
+      "cohens_d_vs_text": 5.835103116243939,
+      "elapsed_seconds": 142.69488835334778
+    },
+    "label_sudden": {
+      "text_f1_mean": 0.8112489943035494,
+      "text_f1_std": 0.0035216078820034294,
+      "stack_f1_mean": 0.8265223542595708,
+      "stack_f1_std": 0.0036135134766919538,
+      "moe_f1_mean": 0.8324667390643047,
+      "moe_f1_std": 0.005822528166168703,
+      "moe_acc_mean": 0.9247395066183295,
+      "t_stat_vs_text": 11.849721962376297,
+      "p_val_vs_text": 0.00029038587874894486,
+      "cohens_d_vs_text": 5.29935676314555,
+      "elapsed_seconds": 230.96521997451782
+    }
+  },
+  "regime_B_out_of_type_loeo": {
+    "label_urgent": {
+      "by_type": {
+        "Earthquake": {
+          "n_samples": 8929,
+          "text_f1": 0.7522615068865605,
+          "stack_f1": 0.5920990420922415,
+          "moe_f1": 0.5950911208054065
+        },
+        "Flood": {
+          "n_samples": 11166,
+          "text_f1": 0.6611714392188602,
+          "stack_f1": 0.5117677985973289,
+          "moe_f1": 0.5175665478279564
+        },
+        "Hurricane": {
+          "n_samples": 45253,
+          "text_f1": 0.6710034229103933,
+          "stack_f1": 0.5624730108968222,
+          "moe_f1": 0.5609138681284085
+        },
+        "Wildfire": {
+          "n_samples": 11133,
+          "text_f1": 0.7497086999426764,
+          "stack_f1": 0.5631455254525514,
+          "moe_f1": 0.5654805489018045
+        }
+      },
+      "mean_text_f1": 0.7085362672396226,
+      "mean_stack_f1": 0.557371344259736,
+      "mean_moe_f1": 0.559763021415894,
+      "pooled_text_f1": 0.6957285247557884,
+      "pooled_stack_f1": 0.559198824186708,
+      "pooled_moe_f1": 0.5600362783953082
+    },
+    "label_useful": {
+      "by_type": {
+        "Earthquake": {
+          "n_samples": 8929,
+          "text_f1": 0.690221819528203,
+          "stack_f1": 0.4856566820276498,
+          "moe_f1": 0.4856566820276498
+        },
+        "Flood": {
+          "n_samples": 11166,
+          "text_f1": 0.655114714621481,
+          "stack_f1": 0.4779803646563815,
+          "moe_f1": 0.4779803646563815
+        },
+        "Hurricane": {
+          "n_samples": 45253,
+          "text_f1": 0.6405969591564875,
+          "stack_f1": 0.4805729961777298,
+          "moe_f1": 0.4805729961777298
+        },
+        "Wildfire": {
+          "n_samples": 11133,
+          "text_f1": 0.7202016083168625,
+          "stack_f1": 0.4646309208944458,
+          "moe_f1": 0.4646309208944458
+        }
+      },
+      "mean_text_f1": 0.6765337754057584,
+      "mean_stack_f1": 0.47721024093905173,
+      "mean_moe_f1": 0.47721024093905173,
+      "pooled_text_f1": 0.6646959280393765,
+      "pooled_stack_f1": 0.4785362660739367,
+      "pooled_moe_f1": 0.4785362660739367
+    },
+    "label_humanitarian": {
+      "by_type": {
+        "Earthquake": {
+          "n_samples": 8929,
+          "text_f1": 0.6161461877421879,
+          "stack_f1": 0.572720435868473,
+          "moe_f1": 0.5743737273387131
+        },
+        "Flood": {
+          "n_samples": 11166,
+          "text_f1": 0.626213273174606,
+          "stack_f1": 0.5549717936683118,
+          "moe_f1": 0.5781688746387528
+        },
+        "Hurricane": {
+          "n_samples": 45253,
+          "text_f1": 0.6451548974510877,
+          "stack_f1": 0.5928689383326449,
+          "moe_f1": 0.6153589481746867
+        },
+        "Wildfire": {
+          "n_samples": 11133,
+          "text_f1": 0.6300828644751062,
+          "stack_f1": 0.5222418062915506,
+          "moe_f1": 0.5811460162912929
+        }
+      },
+      "mean_text_f1": 0.629399305710747,
+      "mean_stack_f1": 0.5607007435402451,
+      "mean_moe_f1": 0.5872618916108614,
+      "pooled_text_f1": 0.6703690860440715,
+      "pooled_stack_f1": 0.5866087088176792,
+      "pooled_moe_f1": 0.6263779373157413
+    }
+  }
+}

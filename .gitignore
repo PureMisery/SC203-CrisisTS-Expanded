@@ -38,6 +38,9 @@ SC203-Flood-HCM/
 Assignments/
 scratch/
 
+# Large uncompressed datasets (>50MB, use .csv.gz instead)
+data/CrisisTS_Full_76k.csv
+
 # OS Specific
 .DS_Store
 Thumbs.db
