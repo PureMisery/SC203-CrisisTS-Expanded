@@ -62,8 +62,8 @@ class NumberedCanvas(canvas.Canvas):
 
         # Header (Pages after Page 1)
         if self._pageNumber > 1:
-            header_left = "SC203: Phương pháp Nghiên cứu Khoa học | Multimodal CrisisTS Benchmark Audit & Expansion"
-            header_right = "Lê Quang Nguyên Phúc — MSSV: 25125070"
+            header_left = "SC203: Scientific Method | Multimodal CrisisTS Benchmark Audit & Expansion"
+            header_right = "Lê Quang Nguyên Phúc — Student ID: 25125070"
             self.drawString(45, 755, header_left)
             self.drawRightString(567, 755, header_right)
             self.setStrokeColor(colors.HexColor("#CBD5E0"))
@@ -71,8 +71,8 @@ class NumberedCanvas(canvas.Canvas):
             self.line(45, 750, 567, 750)
 
         # Footer (All pages)
-        footer_left = "Khoa Công nghệ Thông tin — Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM (VNUHCM-US)"
-        footer_right = f"Trang {self._pageNumber} / {page_count}"
+        footer_left = "Faculty of Information Technology — University of Science, VNU-HCM"
+        footer_right = f"Page {self._pageNumber} of {page_count}"
         self.drawString(45, 32, footer_left)
         self.drawRightString(567, 32, footer_right)
         self.setStrokeColor(colors.HexColor("#CBD5E0"))
@@ -283,12 +283,12 @@ def build_academic_pdf(output_pdf_path: str):
     # =========================================================================
     story.append(Paragraph("Spatiotemporal-Invariant Multimodal Classification Coupling Social Media and Meteorological Time Series", title_style))
     story.append(Paragraph("An Upstream Pipeline Audit, 19-Event Dataset Expansion, and Empirical Benchmark of CrisisTS", subtitle_style))
-    story.append(Paragraph("<b>Học phần:</b> SC203 — Phương pháp Nghiên cứu Khoa học (<i>Scientific Method</i>)<br/><b>Sinh viên thực hiện:</b> Lê Quang Nguyên Phúc (MSSV: 25125070)<br/><b>Đơn vị:</b> Khoa Công nghệ Thông tin, Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM<br/><b>Phạm vi Benchmark:</b> ACL 2025 Long Paper Benchmark (Meunier et al., <i>2025.acl-long.783</i>) | Quy mô: <i>N</i> = 17,628 &amp; Toàn bộ <i>N</i> = 76,481 Mẫu Multimodal", meta_style))
+    story.append(Paragraph("<b>Course:</b> SC203 — Scientific Method<br/><b>Author:</b> Lê Quang Nguyên Phúc (Student ID: 25125070)<br/><b>Affiliation:</b> Faculty of Information Technology, University of Science, VNU-HCM<br/><b>Benchmark Scope:</b> ACL 2025 Long Paper Benchmark (Meunier et al., <i>2025.acl-long.783</i>) | Scale: <i>N</i> = 17,628 &amp; Full <i>N</i> = 76,481 Multimodal Corpus", meta_style))
     story.append(HRFlowable(width="100%", thickness=1.5, color=c_secondary, spaceAfter=6))
 
     # Abstract Callout Box
     abstract_content = [
-        Paragraph("<b>TÓM TẮT NỘI DUNG (ABSTRACT)</b>", abstract_heading),
+        Paragraph("<b>ABSTRACT</b>", abstract_heading),
         Paragraph(
             "Crisis informatics frameworks increasingly attempt to combine unstructured social media text with objective environmental time series to enhance disaster situational awareness. However, our rigorous audit of the premier ACL 2025 benchmark, <b>CrisisTS</b> (Meunier et al., 2025), revealed critical upstream pipeline errors: (1) <b>21.1% duplicate row leakage</b> (1,462 duplicates in the English release), (2) a severe <b>geocoding error</b> mis-mapping Hurricane Harvey to Kansas instead of Texas, (3) a <b>case-sensitivity bug</b> mislabeling all 1,087 wildfire events as non-sudden, (4) the arbitrary exclusion of 9 global disasters, and (5) semantic distortion in urgent plea mapping. In this work, we rectify the upstream ingestion pipeline and establish <b>CrisisTS-Expanded</b>, scaling from the audited <i>N</i> = 17,628 sample cohort to the complete <b><i>N</i> = 76,481 human-annotated corpus</b> across all 19 global disasters via 64-bit Twitter Snowflake timestamp decoding and ERA5 reanalysis. We formulate formal hypotheses (<i>H</i><sub>0</sub> / <i>H</i><sub>1</sub>) and introduce a <b>Spatiotemporal-Invariant Multimodal Architecture</b> with Dynamic Modality Gating (MoE) and <b>ICLR 2024 Split Conformal Risk Control</b> with disjoint calibration. Across stratified 5-fold cross-validation on <i>N</i> = 76,481, our model achieves <b>0.7703 ± 0.0045 Macro-F1 (84.76% Acc)</b> on 3-class Urgency and <b>0.7322 ± 0.0084 Macro-F1 (75.26% Acc)</b> on fine-grained 10-class Humanitarian categorization, significantly outperforming unimodal text (<i>p</i> ≤ 0.0045, Cohen's <i>d</i> ≥ 2.58). In Leave-One-Crisis-Type-Out cross-disaster generalization on <i>N</i> = 76,481, dynamic gating achieves <b>72.57% Mean Macro-F1</b> on Urgency and <b>72.75% Mean Macro-F1</b> on Utility, outperforming unimodal baselines across all 4 held-out disaster regimes without heuristic hacks. Finally, split conformal calibration yields a distribution-free threshold <i>τ</i> = 0.174 guaranteeing <b>94.54% empirical recall</b> on life-critical urgent pleas.",
             abstract_text
@@ -353,11 +353,11 @@ def build_academic_pdf(output_pdf_path: str):
     # Styled Equation Display Box
     eq_data = [
         [
-            Paragraph("<b><i>H</i><sub>0</sub>:</b> &nbsp; <i>μ</i><sub>Macro-F1</sub>(Multimodal) − <i>μ</i><sub>Macro-F1</sub>(Text-Only) ≤ 0.030 &nbsp;&nbsp; hoặc &nbsp;&nbsp; <i>p</i> ≥ 0.05", eq_style_left),
+            Paragraph("<b><i>H</i><sub>0</sub>:</b> &nbsp; <i>μ</i><sub>Macro-F1</sub>(Multimodal) − <i>μ</i><sub>Macro-F1</sub>(Text-Only) ≤ 0.030 &nbsp;&nbsp; or &nbsp;&nbsp; <i>p</i> ≥ 0.05", eq_style_left),
             Paragraph("<i>(1)</i>", eq_style_right)
         ],
         [
-            Paragraph("<b><i>H</i><sub>1</sub>:</b> &nbsp; <i>μ</i><sub>Macro-F1</sub>(Multimodal) − <i>μ</i><sub>Macro-F1</sub>(Text-Only) &gt; 0.030 &nbsp;&nbsp; và &nbsp;&nbsp; <i>p</i> &lt; 0.05", eq_style_left),
+            Paragraph("<b><i>H</i><sub>1</sub>:</b> &nbsp; <i>μ</i><sub>Macro-F1</sub>(Multimodal) − <i>μ</i><sub>Macro-F1</sub>(Text-Only) &gt; 0.030 &nbsp;&nbsp; and &nbsp;&nbsp; <i>p</i> &lt; 0.05", eq_style_left),
             Paragraph("<i>(2)</i>", eq_style_right)
         ]
     ]
