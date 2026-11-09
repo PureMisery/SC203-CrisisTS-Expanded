@@ -110,7 +110,7 @@ We rewrote the upstream data engine ([`crisists/build_expanded_dataset.py`](cris
 
 ### 1. Installation
 ```bash
-git clone <repo-url>
+git clone https://github.com/PureMisery/SC203-CrisisTS-Expanded.git
 cd SC203-CrisisTS-Expanded
 pip install -r requirements.txt
 ```
