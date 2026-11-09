@@ -1,0 +1,46 @@
+{
+  "location": "Ho Chi Minh City (10.8231, 106.6297)",
+  "dates": [
+    "2026-11-03",
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-06",
+    "2026-11-07"
+  ],
+  "p_ts_calm": 0.2301,
+  "p_ts_storm": 0.4852,
+  "predictions": [
+    {
+      "post": "URGENT SOS: Flood waters rising fast in Thu Duc district, families trapped on rooftops near Suoi Tien, need rescue boats immediately!",
+      "p_text_only": 0.4718,
+      "p_ts_calm": 0.2301,
+      "p_ts_storm": 0.4852,
+      "p_multimodal_calm": 0.3631,
+      "p_multimodal_storm": 0.4778
+    },
+    {
+      "post": "ALERT: Bridge collapse and severe road washout reported after torrential rain, multiple vehicles stranded, emergency medical aid needed.",
+      "p_text_only": 0.7151,
+      "p_ts_calm": 0.2301,
+      "p_ts_storm": 0.4852,
+      "p_multimodal_calm": 0.4969,
+      "p_multimodal_storm": 0.6116
+    },
+    {
+      "post": "Nice sunny afternoon in District 1, anyone want to grab coffee and walk around Tao Dan Park?",
+      "p_text_only": 0.4492,
+      "p_ts_calm": 0.2301,
+      "p_ts_storm": 0.4852,
+      "p_multimodal_calm": 0.3506,
+      "p_multimodal_storm": 0.4654
+    },
+    {
+      "post": "OMG MASSIVE TSUNAMI WAVE DESTROYING EVERYTHING RIGHT NOW! Share this video from 2018! #panic",
+      "p_text_only": 0.6382,
+      "p_ts_calm": 0.2301,
+      "p_ts_storm": 0.4852,
+      "p_multimodal_calm": 0.4546,
+      "p_multimodal_storm": 0.5693
+    }
+  ]
+}

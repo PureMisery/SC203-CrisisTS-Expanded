@@ -1,0 +1,47 @@
+walton
+collier
+alachua
+citrus
+baker
+seminole
+manatee
+hillsborough
+escambia
+lake
+holmes
+sarasota
+levy
+suwannee
+miami-dade
+manateesarasota
+st. lucie
+osceola
+brevard
+flaglerst. johns
+dixie
+pasco
+desoto
+gadsden
+levygilchrist
+santa rosa
+bradford
+palm beach
+gulf
+hardee
+pinellas
+charlotte
+st. johns
+flagler
+indian river
+okeechobee
+glades
+hernando
+bay
+lafayette
+broward
+okaloosa
+volusia
+highlands
+wakulla
+hendry
+gilchrist

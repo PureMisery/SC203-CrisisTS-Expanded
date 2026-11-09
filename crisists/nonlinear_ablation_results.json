@@ -1,0 +1,119 @@
+{
+  "fold_details": [
+    {
+      "fold": 1,
+      "Baseline_Text_Only": 0.7945762957167476,
+      "Baseline_TS_MLP": 0.715353452422418,
+      "Nonlinear_SVD_MLP_Fusion": 0.9137957179740238,
+      "Entropy_Gated_Fusion": 0.9079883466225743,
+      "Stacking_Meta_Fusion": 0.9551683752641601
+    },
+    {
+      "fold": 2,
+      "Baseline_Text_Only": 0.7919228399272388,
+      "Baseline_TS_MLP": 0.7301495664709604,
+      "Nonlinear_SVD_MLP_Fusion": 0.8961714425305208,
+      "Entropy_Gated_Fusion": 0.917588480462732,
+      "Stacking_Meta_Fusion": 0.9478264950395953
+    },
+    {
+      "fold": 3,
+      "Baseline_Text_Only": 0.7901665147558651,
+      "Baseline_TS_MLP": 0.7241153553166731,
+      "Nonlinear_SVD_MLP_Fusion": 0.8929354866421618,
+      "Entropy_Gated_Fusion": 0.9076695715076916,
+      "Stacking_Meta_Fusion": 0.9407963529256179
+    },
+    {
+      "fold": 4,
+      "Baseline_Text_Only": 0.7876203121583935,
+      "Baseline_TS_MLP": 0.7299609110772374,
+      "Nonlinear_SVD_MLP_Fusion": 0.9004728379545699,
+      "Entropy_Gated_Fusion": 0.9058208768636887,
+      "Stacking_Meta_Fusion": 0.9481014717622956
+    },
+    {
+      "fold": 5,
+      "Baseline_Text_Only": 0.8028957576104752,
+      "Baseline_TS_MLP": 0.7104962421102378,
+      "Nonlinear_SVD_MLP_Fusion": 0.915600626440337,
+      "Entropy_Gated_Fusion": 0.9216814528964837,
+      "Stacking_Meta_Fusion": 0.9573643053527574
+    }
+  ],
+  "summary": {
+    "Baseline_Text_Only": {
+      "fold_scores": [
+        0.7945762957167476,
+        0.7919228399272388,
+        0.7901665147558651,
+        0.7876203121583935,
+        0.8028957576104752
+      ],
+      "mean": 0.793436344033744,
+      "std": 0.005864910485617074
+    },
+    "Baseline_TS_MLP": {
+      "fold_scores": [
+        0.715353452422418,
+        0.7301495664709604,
+        0.7241153553166731,
+        0.7299609110772374,
+        0.7104962421102378
+      ],
+      "mean": 0.7220151054795053,
+      "std": 0.008814450725510821
+    },
+    "Nonlinear_SVD_MLP_Fusion": {
+      "fold_scores": [
+        0.9137957179740238,
+        0.8961714425305208,
+        0.8929354866421618,
+        0.9004728379545699,
+        0.915600626440337
+      ],
+      "mean": 0.9037952223083228,
+      "std": 0.01032559435230312
+    },
+    "Entropy_Gated_Fusion": {
+      "fold_scores": [
+        0.9079883466225743,
+        0.917588480462732,
+        0.9076695715076916,
+        0.9058208768636887,
+        0.9216814528964837
+      ],
+      "mean": 0.912149745670634,
+      "std": 0.0070334390898248896
+    },
+    "Stacking_Meta_Fusion": {
+      "fold_scores": [
+        0.9551683752641601,
+        0.9478264950395953,
+        0.9407963529256179,
+        0.9481014717622956,
+        0.9573643053527574
+      ],
+      "mean": 0.9498514000688854,
+      "std": 0.0065929951322263895
+    }
+  },
+  "paired_ttest_vs_baseline_text_only": {
+    "Baseline_TS_MLP": {
+      "t_statistic": -11.207125343353177,
+      "p_value": 0.00036096671807883305
+    },
+    "Nonlinear_SVD_MLP_Fusion": {
+      "t_statistic": 36.26878848417588,
+      "p_value": 3.450016889230095e-06
+    },
+    "Entropy_Gated_Fusion": {
+      "t_statistic": 60.04704129214308,
+      "p_value": 4.606618365477909e-07
+    },
+    "Stacking_Meta_Fusion": {
+      "t_statistic": 82.72577622704544,
+      "p_value": 1.2798671612439287e-07
+    }
+  }
+}

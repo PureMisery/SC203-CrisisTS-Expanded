@@ -1,0 +1,669 @@
+{
+  "out_of_type_original_6923": {
+    "n_samples": 6923,
+    "tasks": {
+      "Utility": {
+        "task_col": "label_useful",
+        "classes": [
+          "not_humanitarian",
+          "useful"
+        ],
+        "per_crisis": {
+          "Hurricane": {
+            "n_test": 4300,
+            "Dummy": 0.4893718085738036,
+            "Text_Only": 0.6384527486826199,
+            "Naive_Linear_MM": 0.5099822666863656,
+            "Spatiotemporal_Invariant_MM": 0.9544398161663024
+          },
+          "Earthquake": {
+            "n_test": 1105,
+            "Dummy": 0.447776111944028,
+            "Text_Only": 0.538218144912539,
+            "Naive_Linear_MM": 0.6312290043861579,
+            "Spatiotemporal_Invariant_MM": 0.9184930132653543
+          },
+          "Wildfire": {
+            "n_test": 1087,
+            "Dummy": 1.0,
+            "Text_Only": 0.4965261695229273,
+            "Naive_Linear_MM": 0.009115770282588878,
+            "Spatiotemporal_Invariant_MM": 1.0
+          },
+          "Flood": {
+            "n_test": 431,
+            "Dummy": 1.0,
+            "Text_Only": 0.495906432748538,
+            "Naive_Linear_MM": 0.4923439340400471,
+            "Spatiotemporal_Invariant_MM": 1.0
+          }
+        },
+        "summary": {
+          "Dummy": {
+            "pooled_macro_f1": 0.48558478228562935,
+            "mean_fold_macro_f1": 0.7342869801294579,
+            "accuracy": 0.943954932832587,
+            "per_class_f1": {
+              "not_humanitarian": 0.0,
+              "useful": 0.9711695645712587
+            }
+          },
+          "Text_Only": {
+            "pooled_macro_f1": 0.6303924008921159,
+            "mean_fold_macro_f1": 0.542275873966656,
+            "accuracy": 0.9127545861620685,
+            "per_class_f1": {
+              "not_humanitarian": 0.3073394495412844,
+              "useful": 0.9534453522429475
+            }
+          },
+          "Naive_Linear_MM": {
+            "pooled_macro_f1": 0.47002979700489556,
+            "mean_fold_macro_f1": 0.41066774384878985,
+            "accuracy": 0.5980066445182725,
+            "per_class_f1": {
+              "not_humanitarian": 0.20959954558364102,
+              "useful": 0.7304600484261501
+            }
+          },
+          "Spatiotemporal_Invariant_MM": {
+            "pooled_macro_f1": 0.9404862132856019,
+            "mean_fold_macro_f1": 0.9682332073579142,
+            "accuracy": 0.9885887620973567,
+            "per_class_f1": {
+              "not_humanitarian": 0.8869814020028612,
+              "useful": 0.9939910245683425
+            }
+          }
+        }
+      },
+      "Urgency": {
+        "task_col": "label_urgent",
+        "classes": [
+          "not_humanitarian",
+          "not_urgent",
+          "urgent"
+        ],
+        "per_crisis": {
+          "Hurricane": {
+            "n_test": 4300,
+            "Dummy": 0.2599895966330922,
+            "Text_Only": 0.6880489911787434,
+            "Naive_Linear_MM": 0.5033417580948809,
+            "Spatiotemporal_Invariant_MM": 0.9140952370494463
+          },
+          "Earthquake": {
+            "n_test": 1105,
+            "Dummy": 0.2799650043744532,
+            "Text_Only": 0.5910140261253404,
+            "Naive_Linear_MM": 0.6532803806437858,
+            "Spatiotemporal_Invariant_MM": 0.9000412358665502
+          },
+          "Wildfire": {
+            "n_test": 1087,
+            "Dummy": 0.4311878597592883,
+            "Text_Only": 0.6180470015383545,
+            "Naive_Linear_MM": 0.15694011477144007,
+            "Spatiotemporal_Invariant_MM": 0.9187501853840268
+          },
+          "Flood": {
+            "n_test": 431,
+            "Dummy": 0.4336399474375821,
+            "Text_Only": 0.5501995993738432,
+            "Naive_Linear_MM": 0.5340747446010604,
+            "Spatiotemporal_Invariant_MM": 0.830636230486193
+          }
+        },
+        "summary": {
+          "Dummy": {
+            "pooled_macro_f1": 0.2696828946613911,
+            "mean_fold_macro_f1": 0.35119560205110395,
+            "accuracy": 0.6793297703307815,
+            "per_class_f1": {
+              "not_humanitarian": 0.0,
+              "not_urgent": 0.0,
+              "urgent": 0.8090486839841734
+            }
+          },
+          "Text_Only": {
+            "pooled_macro_f1": 0.6860244891111419,
+            "mean_fold_macro_f1": 0.6118274045540704,
+            "accuracy": 0.8348981655351726,
+            "per_class_f1": {
+              "not_humanitarian": 0.33520809898762655,
+              "not_urgent": 0.8422141748577341,
+              "urgent": 0.8806511934880651
+            }
+          },
+          "Naive_Linear_MM": {
+            "pooled_macro_f1": 0.4878350908812353,
+            "mean_fold_macro_f1": 0.4619092495277918,
+            "accuracy": 0.5243391593239924,
+            "per_class_f1": {
+              "not_humanitarian": 0.2238940716220283,
+              "not_urgent": 0.621606334841629,
+              "urgent": 0.6180048661800487
+            }
+          },
+          "Spatiotemporal_Invariant_MM": {
+            "pooled_macro_f1": 0.9114257253239098,
+            "mean_fold_macro_f1": 0.890880722196554,
+            "accuracy": 0.9117434638162646,
+            "per_class_f1": {
+              "not_humanitarian": 0.9516129032258065,
+              "not_urgent": 0.8480546792849631,
+              "urgent": 0.9346095934609594
+            }
+          }
+        }
+      },
+      "Humanitarian": {
+        "task_col": "label_humanitarian",
+        "classes": [
+          "caution_and_advice",
+          "displaced_people_and_evacuations",
+          "infrastructure_and_utility_damage",
+          "injured_or_dead_people",
+          "missing_or_found_people",
+          "not_humanitarian",
+          "requests_or_urgent_needs",
+          "rescue_volunteering_or_donation_effort"
+        ],
+        "per_crisis": {
+          "Hurricane": {
+            "n_test": 4300,
+            "Dummy": 0.017215244694673018,
+            "Text_Only": 0.6719205357140625,
+            "Naive_Linear_MM": 0.39417990048872953,
+            "Spatiotemporal_Invariant_MM": 0.7681383186530211
+          },
+          "Earthquake": {
+            "n_test": 1105,
+            "Dummy": 0.019983347210657785,
+            "Text_Only": 0.6213634988084216,
+            "Naive_Linear_MM": 0.6335142428553616,
+            "Spatiotemporal_Invariant_MM": 0.803364716751041
+          },
+          "Wildfire": {
+            "n_test": 1087,
+            "Dummy": 0.055661375661375655,
+            "Text_Only": 0.6604967887432416,
+            "Naive_Linear_MM": 0.19888110356737615,
+            "Spatiotemporal_Invariant_MM": 0.7758263276205193
+          },
+          "Flood": {
+            "n_test": 431,
+            "Dummy": 0.054242749731471536,
+            "Text_Only": 0.5173345551812958,
+            "Naive_Linear_MM": 0.46218731198222796,
+            "Spatiotemporal_Invariant_MM": 0.6014401028485536
+          }
+        },
+        "summary": {
+          "Dummy": {
+            "pooled_macro_f1": 0.04087336287247886,
+            "mean_fold_macro_f1": 0.036775679324544494,
+            "accuracy": 0.11237902643362704,
+            "per_class_f1": {
+              "caution_and_advice": 0.0,
+              "displaced_people_and_evacuations": 0.0,
+              "infrastructure_and_utility_damage": 0.0,
+              "injured_or_dead_people": 0.12047736313695775,
+              "missing_or_found_people": 0.0,
+              "not_humanitarian": 0.0,
+              "requests_or_urgent_needs": 0.0,
+              "rescue_volunteering_or_donation_effort": 0.20650953984287318
+            }
+          },
+          "Text_Only": {
+            "pooled_macro_f1": 0.6913729900109922,
+            "mean_fold_macro_f1": 0.6177788446117554,
+            "accuracy": 0.7505416726852521,
+            "per_class_f1": {
+              "caution_and_advice": 0.6175195143104943,
+              "displaced_people_and_evacuations": 0.8535825545171339,
+              "infrastructure_and_utility_damage": 0.8221377270806929,
+              "injured_or_dead_people": 0.882445967316816,
+              "missing_or_found_people": 0.5907473309608541,
+              "not_humanitarian": 0.3650485436893204,
+              "requests_or_urgent_needs": 0.5705614567526556,
+              "rescue_volunteering_or_donation_effort": 0.8289408254599702
+            }
+          },
+          "Naive_Linear_MM": {
+            "pooled_macro_f1": 0.41644163986663185,
+            "mean_fold_macro_f1": 0.4221906397234238,
+            "accuracy": 0.46179401993355484,
+            "per_class_f1": {
+              "caution_and_advice": 0.42206477732793524,
+              "displaced_people_and_evacuations": 0.5,
+              "infrastructure_and_utility_damage": 0.650278293135436,
+              "injured_or_dead_people": 0.43302180685358255,
+              "missing_or_found_people": 0.2629757785467128,
+              "not_humanitarian": 0.2374283895607893,
+              "requests_or_urgent_needs": 0.21397379912663755,
+              "rescue_volunteering_or_donation_effort": 0.6117902743819614
+            }
+          },
+          "Spatiotemporal_Invariant_MM": {
+            "pooled_macro_f1": 0.804505829906004,
+            "mean_fold_macro_f1": 0.7371923664682838,
+            "accuracy": 0.819731330348115,
+            "per_class_f1": {
+              "caution_and_advice": 0.7023217247097844,
+              "displaced_people_and_evacuations": 0.8697604790419161,
+              "infrastructure_and_utility_damage": 0.8339513803049031,
+              "injured_or_dead_people": 0.9204720369420215,
+              "missing_or_found_people": 0.6842105263157895,
+              "not_humanitarian": 0.9777777777777777,
+              "requests_or_urgent_needs": 0.6162790697674418,
+              "rescue_volunteering_or_donation_effort": 0.8312736443883985
+            }
+          }
+        }
+      }
+    }
+  },
+  "out_of_type_expanded_17628": {
+    "n_samples": 17628,
+    "tasks": {
+      "Utility": {
+        "task_col": "label_useful",
+        "classes": [
+          "not_humanitarian",
+          "useful"
+        ],
+        "per_crisis": {
+          "Hurricane": {
+            "n_test": 7463,
+            "Dummy": 0.49393096901064626,
+            "Text_Only": 0.5530343763603008,
+            "Naive_Linear_MM": 0.7389245523745427,
+            "Spatiotemporal_Invariant_MM": 0.8149080492553415
+          },
+          "Earthquake": {
+            "n_test": 4444,
+            "Dummy": 0.487072945521699,
+            "Text_Only": 0.5662513363027675,
+            "Naive_Linear_MM": 0.5594022951218524,
+            "Spatiotemporal_Invariant_MM": 0.8714378393816253
+          },
+          "Wildfire": {
+            "n_test": 2992,
+            "Dummy": 1.0,
+            "Text_Only": 0.498070793491025,
+            "Naive_Linear_MM": 0.38738738738738737,
+            "Spatiotemporal_Invariant_MM": 1.0
+          },
+          "Flood": {
+            "n_test": 2729,
+            "Dummy": 1.0,
+            "Text_Only": 0.49852995222344726,
+            "Naive_Linear_MM": 0.40179745725558963,
+            "Spatiotemporal_Invariant_MM": 1.0
+          }
+        },
+        "summary": {
+          "Dummy": {
+            "pooled_macro_f1": 0.49421857515852297,
+            "mean_fold_macro_f1": 0.7452509786330863,
+            "accuracy": 0.9771386430678466,
+            "per_class_f1": {
+              "not_humanitarian": 0.0,
+              "useful": 0.9884371503170459
+            }
+          },
+          "Text_Only": {
+            "pooled_macro_f1": 0.577944856988837,
+            "mean_fold_macro_f1": 0.5289716145943851,
+            "accuracy": 0.9538801906058543,
+            "per_class_f1": {
+              "not_humanitarian": 0.17961654894046417,
+              "useful": 0.97627316503721
+            }
+          },
+          "Naive_Linear_MM": {
+            "pooled_macro_f1": 0.5158755661622847,
+            "mean_fold_macro_f1": 0.521877923034843,
+            "accuracy": 0.822498298162015,
+            "per_class_f1": {
+              "not_humanitarian": 0.13059183106418448,
+              "useful": 0.9011593012603848
+            }
+          },
+          "Spatiotemporal_Invariant_MM": {
+            "pooled_macro_f1": 0.8501963050461445,
+            "mean_fold_macro_f1": 0.9215864721592417,
+            "accuracy": 0.9892216927615157,
+            "per_class_f1": {
+              "not_humanitarian": 0.7058823529411765,
+              "useful": 0.9945102571511124
+            }
+          }
+        }
+      },
+      "Urgency": {
+        "task_col": "label_urgent",
+        "classes": [
+          "not_humanitarian",
+          "not_urgent",
+          "urgent"
+        ],
+        "per_crisis": {
+          "Hurricane": {
+            "n_test": 7463,
+            "Dummy": 0.2559572945902812,
+            "Text_Only": 0.6558996660653741,
+            "Naive_Linear_MM": 0.7186709164714055,
+            "Spatiotemporal_Invariant_MM": 0.894562872668275
+          },
+          "Earthquake": {
+            "n_test": 4444,
+            "Dummy": 0.2567791920309906,
+            "Text_Only": 0.6643130021408031,
+            "Naive_Linear_MM": 0.6927847586134392,
+            "Spatiotemporal_Invariant_MM": 0.910531665496102
+          },
+          "Wildfire": {
+            "n_test": 2992,
+            "Dummy": 0.37835030126740077,
+            "Text_Only": 0.6188070534833058,
+            "Naive_Linear_MM": 0.5047193334253418,
+            "Spatiotemporal_Invariant_MM": 0.9306048516936307
+          },
+          "Flood": {
+            "n_test": 2729,
+            "Dummy": 0.2681684097613301,
+            "Text_Only": 0.5902377266214102,
+            "Naive_Linear_MM": 0.5116033543049244,
+            "Spatiotemporal_Invariant_MM": 0.8922854195957315
+          }
+        },
+        "summary": {
+          "Dummy": {
+            "pooled_macro_f1": 0.24520633099029313,
+            "mean_fold_macro_f1": 0.2898137994125007,
+            "accuracy": 0.5818016791468119,
+            "per_class_f1": {
+              "not_humanitarian": 0.0,
+              "not_urgent": 0.0,
+              "urgent": 0.7356189929708794
+            }
+          },
+          "Text_Only": {
+            "pooled_macro_f1": 0.6696946575649596,
+            "mean_fold_macro_f1": 0.6323143620777233,
+            "accuracy": 0.8792262309961425,
+            "per_class_f1": {
+              "not_humanitarian": 0.21465428276573786,
+              "not_urgent": 0.8925236925236926,
+              "urgent": 0.9019059974054485
+            }
+          },
+          "Naive_Linear_MM": {
+            "pooled_macro_f1": 0.6122104837284108,
+            "mean_fold_macro_f1": 0.6069445907037777,
+            "accuracy": 0.7809167233945995,
+            "per_class_f1": {
+              "not_humanitarian": 0.1605550049554014,
+              "not_urgent": 0.8313848920863309,
+              "urgent": 0.8446915541435002
+            }
+          },
+          "Spatiotemporal_Invariant_MM": {
+            "pooled_macro_f1": 0.9041399604318748,
+            "mean_fold_macro_f1": 0.9069962023634348,
+            "accuracy": 0.9160993873383254,
+            "per_class_f1": {
+              "not_humanitarian": 0.8838951310861424,
+              "not_urgent": 0.8997879858657244,
+              "urgent": 0.9287367643437577
+            }
+          }
+        }
+      },
+      "Humanitarian": {
+        "task_col": "label_humanitarian",
+        "classes": [
+          "caution_and_advice",
+          "displaced_people_and_evacuations",
+          "infrastructure_and_utility_damage",
+          "injured_or_dead_people",
+          "missing_or_found_people",
+          "not_humanitarian",
+          "requests_or_urgent_needs",
+          "rescue_volunteering_or_donation_effort"
+        ],
+        "per_crisis": {
+          "Hurricane": {
+            "n_test": 7463,
+            "Dummy": 0.06519908874801902,
+            "Text_Only": 0.7131093244466928,
+            "Naive_Linear_MM": 0.7053505617421871,
+            "Spatiotemporal_Invariant_MM": 0.8118464087064141
+          },
+          "Earthquake": {
+            "n_test": 4444,
+            "Dummy": 0.061054421768707484,
+            "Text_Only": 0.6441284191798925,
+            "Naive_Linear_MM": 0.6529607567129301,
+            "Spatiotemporal_Invariant_MM": 0.767551082881465
+          },
+          "Wildfire": {
+            "n_test": 2992,
+            "Dummy": 0.08036786657973302,
+            "Text_Only": 0.6903235142825384,
+            "Naive_Linear_MM": 0.5407118903510135,
+            "Spatiotemporal_Invariant_MM": 0.8135680199369902
+          },
+          "Flood": {
+            "n_test": 2729,
+            "Dummy": 0.11081202332884701,
+            "Text_Only": 0.6659809418713034,
+            "Naive_Linear_MM": 0.5624438784123378,
+            "Spatiotemporal_Invariant_MM": 0.7653231305431208
+          }
+        },
+        "summary": {
+          "Dummy": {
+            "pooled_macro_f1": 0.07083180875716551,
+            "mean_fold_macro_f1": 0.07935835010632664,
+            "accuracy": 0.39533696392103473,
+            "per_class_f1": {
+              "caution_and_advice": 0.0,
+              "displaced_people_and_evacuations": 0.0,
+              "infrastructure_and_utility_damage": 0.0,
+              "injured_or_dead_people": 0.0,
+              "missing_or_found_people": 0.0,
+              "not_humanitarian": 0.0,
+              "requests_or_urgent_needs": 0.0,
+              "rescue_volunteering_or_donation_effort": 0.5666544700573241
+            }
+          },
+          "Text_Only": {
+            "pooled_macro_f1": 0.7180039771702855,
+            "mean_fold_macro_f1": 0.6783855499451067,
+            "accuracy": 0.8261856137962332,
+            "per_class_f1": {
+              "caution_and_advice": 0.6802605494194279,
+              "displaced_people_and_evacuations": 0.8660640920295809,
+              "infrastructure_and_utility_damage": 0.8525084873632591,
+              "injured_or_dead_people": 0.9181173436492586,
+              "missing_or_found_people": 0.6989473684210527,
+              "not_humanitarian": 0.23018867924528302,
+              "requests_or_urgent_needs": 0.613920881321983,
+              "rescue_volunteering_or_donation_effort": 0.8840244159124395
+            }
+          },
+          "Naive_Linear_MM": {
+            "pooled_macro_f1": 0.6559163954317417,
+            "mean_fold_macro_f1": 0.6153667718046172,
+            "accuracy": 0.7235080553664625,
+            "per_class_f1": {
+              "caution_and_advice": 0.6579471140176286,
+              "displaced_people_and_evacuations": 0.812972012438916,
+              "infrastructure_and_utility_damage": 0.7977352596641937,
+              "injured_or_dead_people": 0.809086179989596,
+              "missing_or_found_people": 0.6197183098591549,
+              "not_humanitarian": 0.18071065989847715,
+              "requests_or_urgent_needs": 0.5514261019878998,
+              "rescue_volunteering_or_donation_effort": 0.8177355255980675
+            }
+          },
+          "Spatiotemporal_Invariant_MM": {
+            "pooled_macro_f1": 0.8197117098731603,
+            "mean_fold_macro_f1": 0.7895721605169975,
+            "accuracy": 0.8619809394145678,
+            "per_class_f1": {
+              "caution_and_advice": 0.7605177993527508,
+              "displaced_people_and_evacuations": 0.865415986949429,
+              "infrastructure_and_utility_damage": 0.866191904047976,
+              "injured_or_dead_people": 0.9335653274280291,
+              "missing_or_found_people": 0.7331975560081466,
+              "not_humanitarian": 0.8867699642431466,
+              "requests_or_urgent_needs": 0.6200396825396826,
+              "rescue_volunteering_or_donation_effort": 0.8919954584161226
+            }
+          }
+        }
+      }
+    }
+  },
+  "out_of_event_expanded_17628": {
+    "splits": [
+      [
+        "california_wildfires_2018",
+        "hurricane_dorian_2019",
+        "hurricane_harvey_2017",
+        "kaikoura_earthquake_2016",
+        "kerala_floods_2018",
+        "puebla_mexico_earthquake_2017"
+      ],
+      [
+        "canada_wildfires_2016",
+        "ecuador_earthquake_2016",
+        "hurricane_florence_2018",
+        "hurricane_maria_2017",
+        "iraq_iran_earthquake_2017",
+        "midwestern_us_floods_2019"
+      ],
+      [
+        "cyclone_idai_2019",
+        "greece_wildfires_2018",
+        "hurricane_irma_2017",
+        "hurricane_matthew_2016",
+        "italy_earthquake_aug_2016",
+        "maryland_floods_2018",
+        "pakistan_earthquake_2019",
+        "srilanka_floods_2017"
+      ]
+    ],
+    "tasks": {
+      "Utility": {
+        "Dummy": {
+          "mean_fold_macro_f1": 0.6612104509582674,
+          "std_fold_macro_f1": 0.2934005046990204,
+          "pooled_macro_f1": 0.49421857515852297,
+          "accuracy": 0.9771386430678466,
+          "fold_f1s": [
+            0.49152029073288916,
+            1.0,
+            0.49211106214191275
+          ]
+        },
+        "Text_Only": {
+          "mean_fold_macro_f1": 0.5491941235445402,
+          "std_fold_macro_f1": 0.05596167602792911,
+          "pooled_macro_f1": 0.5886541939976806,
+          "accuracy": 0.9708985704560926,
+          "fold_f1s": [
+            0.6096868256543206,
+            0.4992707826932426,
+            0.5386247622860574
+          ]
+        },
+        "Spatiotemporal_Invariant_MM": {
+          "mean_fold_macro_f1": 0.9171326989546206,
+          "std_fold_macro_f1": 0.11311465963520234,
+          "pooled_macro_f1": 0.8974418294256351,
+          "accuracy": 0.9922850011345586,
+          "fold_f1s": [
+            0.9631329322383734,
+            1.0,
+            0.7882651646254881
+          ]
+        }
+      },
+      "Urgency": {
+        "Dummy": {
+          "mean_fold_macro_f1": 0.28465836871179334,
+          "std_fold_macro_f1": 0.06332609019871623,
+          "pooled_macro_f1": 0.24520633099029313,
+          "accuracy": 0.5818016791468119,
+          "fold_f1s": [
+            0.2450721908349027,
+            0.35769518583187826,
+            0.25120772946859904
+          ]
+        },
+        "Text_Only": {
+          "mean_fold_macro_f1": 0.6540576908512934,
+          "std_fold_macro_f1": 0.04261721576658553,
+          "pooled_macro_f1": 0.6849149713872112,
+          "accuracy": 0.9028250510551395,
+          "fold_f1s": [
+            0.7025319555983752,
+            0.6224781254601436,
+            0.6371629914953615
+          ]
+        },
+        "Spatiotemporal_Invariant_MM": {
+          "mean_fold_macro_f1": 0.9182578089778134,
+          "std_fold_macro_f1": 0.019515755091403048,
+          "pooled_macro_f1": 0.9175660418120425,
+          "accuracy": 0.9223961878829136,
+          "fold_f1s": [
+            0.9295248102555447,
+            0.929525660605655,
+            0.8957229560722407
+          ]
+        }
+      },
+      "Humanitarian": {
+        "Dummy": {
+          "mean_fold_macro_f1": 0.0746741056915786,
+          "std_fold_macro_f1": 0.011391163687228933,
+          "pooled_macro_f1": 0.07083180875716551,
+          "accuracy": 0.39533696392103473,
+          "fold_f1s": [
+            0.06953998280309544,
+            0.08772874058127018,
+            0.06675359369037018
+          ]
+        },
+        "Text_Only": {
+          "mean_fold_macro_f1": 0.7120414071832352,
+          "std_fold_macro_f1": 0.020118449696923623,
+          "pooled_macro_f1": 0.7341233663984255,
+          "accuracy": 0.852337190832766,
+          "fold_f1s": [
+            0.7338465197253157,
+            0.6941994836155281,
+            0.7080782182088619
+          ]
+        },
+        "Spatiotemporal_Invariant_MM": {
+          "mean_fold_macro_f1": 0.8109653453639085,
+          "std_fold_macro_f1": 0.018770615796749282,
+          "pooled_macro_f1": 0.8314171588554486,
+          "accuracy": 0.8727592466530519,
+          "fold_f1s": [
+            0.823810187965559,
+            0.7894236141815678,
+            0.8196622339445988
+          ]
+        }
+      }
+    }
+  }
+}
