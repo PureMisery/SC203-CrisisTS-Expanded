@@ -7,10 +7,11 @@ Generates a publication-grade PDF report with ReportLab:
 - Embedded 300 DPI figures with centered captions
 - Complete mathematical hypotheses, variable classification, pipeline audit,
   expanded empirical benchmarks (N = 17,628 & N = 76,481), LOEO-CV, and Q1 enhancements.
-Strict length: Exactly 5 pages.
+Strict length: Publication-grade 6-page comprehensive research paper.
 """
 import os
 import sys
+from PIL import Image as PILImage
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -21,6 +22,14 @@ from reportlab.platypus import (
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+
+
+def get_aspect_image(path: str, target_width: float = 6.4 * inch) -> Image:
+    """Load image and preserve its exact natural aspect ratio without squashing."""
+    with PILImage.open(path) as img:
+        w, h = img.size
+        aspect = h / w
+    return Image(path, width=target_width, height=target_width * aspect)
 
 # Register TrueType fonts for full Vietnamese Unicode & Mathematical Symbol support
 FONT_DIR = "C:/Windows/Fonts"
@@ -274,6 +283,52 @@ def build_academic_pdf(output_pdf_path: str):
         leading=13,
         textColor=colors.HexColor("#718096"),
         alignment=2 # Right align
+    )
+
+    hyp_title_style = ParagraphStyle(
+        'HypTitle',
+        parent=styles['Normal'],
+        fontName='TimesNewRoman-Bold',
+        fontSize=9,
+        leading=12,
+        textColor=c_primary
+    )
+
+    hyp_label_style = ParagraphStyle(
+        'HypLabel',
+        parent=styles['Normal'],
+        fontName='TimesNewRoman-Bold',
+        fontSize=8.5,
+        leading=11.5,
+        textColor=c_secondary
+    )
+
+    hyp_math_style = ParagraphStyle(
+        'HypMath',
+        parent=styles['Normal'],
+        fontName='TimesNewRoman',
+        fontSize=8.5,
+        leading=12,
+        textColor=c_dark
+    )
+
+    hyp_eq_style = ParagraphStyle(
+        'HypEq',
+        parent=styles['Normal'],
+        fontName='TimesNewRoman-Italic',
+        fontSize=8.5,
+        leading=12,
+        textColor=colors.HexColor("#718096"),
+        alignment=2
+    )
+
+    hyp_desc_style = ParagraphStyle(
+        'HypDesc',
+        parent=styles['Normal'],
+        fontName='TimesNewRoman',
+        fontSize=8,
+        leading=11,
+        textColor=c_dark
     )
 
     story = []

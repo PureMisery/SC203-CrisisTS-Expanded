@@ -38,8 +38,12 @@ SC203-Flood-HCM/
 Assignments/
 scratch/
 
-# Large uncompressed datasets (>50MB, use .csv.gz instead)
+# Large uncompressed datasets and binary caches (>50MB)
 data/CrisisTS_Full_76k.csv
+data/CrisisTS_Expanded_MultiDataset.csv
+data/cache_ingest/
+data/intermediate_extended_tweets.parquet
+test_*.pdf
 
 # OS Specific
 .DS_Store
