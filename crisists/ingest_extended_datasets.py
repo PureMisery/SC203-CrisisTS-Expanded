@@ -84,95 +84,97 @@ CRISISMMD_INT_LABEL_MAP = {
     7: "infrastructure_and_utility_damage",     # vehicle_damage
 }
 
-# Event registry: maps native raw event string to (canonical_event_name, Crisis_Type)
+# Event registry: maps native raw event string to (canonical_event_name, Crisis_Type, Hazard_Domain)
+# Ensures scientific validity: human-made incidents, transport crashes, and epidemics are
+# no longer falsely mapped to natural hazard categories (Earthquake, Wildfire, Flood, Hurricane).
 EVENT_METADATA = {
-    # HumAID (19 events)
-    "california_wildfires_2018": ("california_wildfires_2018", "Wildfire"),
-    "canada_wildfires_2016": ("canada_wildfires_2016", "Wildfire"),
-    "cyclone_idai_2019": ("cyclone_idai_2019", "Hurricane"),
-    "ecuador_earthquake_2016": ("ecuador_earthquake_2016", "Earthquake"),
-    "greece_wildfires_2018": ("greece_wildfires_2018", "Wildfire"),
-    "hurricane_dorian_2019": ("hurricane_dorian_2019", "Hurricane"),
-    "hurricane_florence_2018": ("hurricane_florence_2018", "Hurricane"),
-    "hurricane_harvey_2017": ("hurricane_harvey_2017", "Hurricane"),
-    "hurricane_irma_2017": ("hurricane_irma_2017", "Hurricane"),
-    "hurricane_maria_2017": ("hurricane_maria_2017", "Hurricane"),
-    "hurricane_matthew_2016": ("hurricane_matthew_2016", "Hurricane"),
-    "italy_earthquake_aug_2016": ("italy_earthquake_aug_2016", "Earthquake"),
-    "kaikoura_earthquake_2016": ("kaikoura_earthquake_2016", "Earthquake"),
-    "kerala_floods_2018": ("kerala_floods_2018", "Flood"),
-    "maryland_floods_2018": ("maryland_floods_2018", "Flood"),
-    "midwestern_us_floods_2019": ("midwestern_us_floods_2019", "Flood"),
-    "pakistan_earthquake_2019": ("pakistan_earthquake_2019", "Earthquake"),
-    "puebla_mexico_earthquake_2017": ("puebla_mexico_earthquake_2017", "Earthquake"),
-    "srilanka_floods_2017": ("srilanka_floods_2017", "Flood"),
+    # HumAID (19 events - All Natural Hazards)
+    "california_wildfires_2018": ("california_wildfires_2018", "Wildfire", "Natural_Hazard"),
+    "canada_wildfires_2016": ("canada_wildfires_2016", "Wildfire", "Natural_Hazard"),
+    "cyclone_idai_2019": ("cyclone_idai_2019", "Hurricane", "Natural_Hazard"),
+    "ecuador_earthquake_2016": ("ecuador_earthquake_2016", "Earthquake", "Natural_Hazard"),
+    "greece_wildfires_2018": ("greece_wildfires_2018", "Wildfire", "Natural_Hazard"),
+    "hurricane_dorian_2019": ("hurricane_dorian_2019", "Hurricane", "Natural_Hazard"),
+    "hurricane_florence_2018": ("hurricane_florence_2018", "Hurricane", "Natural_Hazard"),
+    "hurricane_harvey_2017": ("hurricane_harvey_2017", "Hurricane", "Natural_Hazard"),
+    "hurricane_irma_2017": ("hurricane_irma_2017", "Hurricane", "Natural_Hazard"),
+    "hurricane_maria_2017": ("hurricane_maria_2017", "Hurricane", "Natural_Hazard"),
+    "hurricane_matthew_2016": ("hurricane_matthew_2016", "Hurricane", "Natural_Hazard"),
+    "italy_earthquake_aug_2016": ("italy_earthquake_aug_2016", "Earthquake", "Natural_Hazard"),
+    "kaikoura_earthquake_2016": ("kaikoura_earthquake_2016", "Earthquake", "Natural_Hazard"),
+    "kerala_floods_2018": ("kerala_floods_2018", "Flood", "Natural_Hazard"),
+    "maryland_floods_2018": ("maryland_floods_2018", "Flood", "Natural_Hazard"),
+    "midwestern_us_floods_2019": ("midwestern_us_floods_2019", "Flood", "Natural_Hazard"),
+    "pakistan_earthquake_2019": ("pakistan_earthquake_2019", "Earthquake", "Natural_Hazard"),
+    "puebla_mexico_earthquake_2017": ("puebla_mexico_earthquake_2017", "Earthquake", "Natural_Hazard"),
+    "srilanka_floods_2017": ("srilanka_floods_2017", "Flood", "Natural_Hazard"),
 
-    # CrisisMMD (7 events)
-    "california_wildfires": ("california_wildfires_2017", "Wildfire"),
-    "hurricane_harvey": ("hurricane_harvey_2017", "Hurricane"),
-    "hurricane_irma": ("hurricane_irma_2017", "Hurricane"),
-    "hurricane_maria": ("hurricane_maria_2017", "Hurricane"),
-    "iraq_iran_earthquake": ("iraq_iran_earthquake_2017", "Earthquake"),
-    "mexico_earthquake": ("puebla_mexico_earthquake_2017", "Earthquake"),
-    "srilanka_floods": ("srilanka_floods_2017", "Flood"),
+    # CrisisMMD (7 events - All Natural Hazards)
+    "california_wildfires": ("california_wildfires_2017", "Wildfire", "Natural_Hazard"),
+    "hurricane_harvey": ("hurricane_harvey_2017", "Hurricane", "Natural_Hazard"),
+    "hurricane_irma": ("hurricane_irma_2017", "Hurricane", "Natural_Hazard"),
+    "hurricane_maria": ("hurricane_maria_2017", "Hurricane", "Natural_Hazard"),
+    "iraq_iran_earthquake": ("iraq_iran_earthquake_2017", "Earthquake", "Natural_Hazard"),
+    "mexico_earthquake": ("puebla_mexico_earthquake_2017", "Earthquake", "Natural_Hazard"),
+    "srilanka_floods": ("srilanka_floods_2017", "Flood", "Natural_Hazard"),
 
     # CrisisLex T6 (6 events)
-    "2012_sandy_hurricane-ontopic": ("2012_sandy_hurricane", "Hurricane"),
-    "2012_sandy_hurricane": ("2012_sandy_hurricane", "Hurricane"),
-    "2013_alberta_floods-ontopic": ("2013_alberta_floods", "Flood"),
-    "2013_alberta_floods": ("2013_alberta_floods", "Flood"),
-    "2013_boston_bombings-ontopic": ("2013_boston_bombings", "Earthquake"),
-    "2013_boston_bombings": ("2013_boston_bombings", "Earthquake"),
-    "2013_oklahoma_tornado-ontopic": ("2013_oklahoma_tornado", "Hurricane"),
-    "2013_oklahoma_tornado": ("2013_oklahoma_tornado", "Hurricane"),
-    "2013_queensland_floods-ontopic": ("2013_queensland_floods", "Flood"),
-    "2013_queensland_floods": ("2013_queensland_floods", "Flood"),
-    "2013_west_texas": ("2013_west_texas", "Wildfire"),
-    "2013_west-texas_explosion": ("2013_west_texas", "Wildfire"),
+    "2012_sandy_hurricane-ontopic": ("2012_sandy_hurricane", "Hurricane", "Natural_Hazard"),
+    "2012_sandy_hurricane": ("2012_sandy_hurricane", "Hurricane", "Natural_Hazard"),
+    "2013_alberta_floods-ontopic": ("2013_alberta_floods", "Flood", "Natural_Hazard"),
+    "2013_alberta_floods": ("2013_alberta_floods", "Flood", "Natural_Hazard"),
+    "2013_boston_bombings-ontopic": ("2013_boston_bombings", "Terrorism", "Human_Induced"),
+    "2013_boston_bombings": ("2013_boston_bombings", "Terrorism", "Human_Induced"),
+    "2013_oklahoma_tornado-ontopic": ("2013_oklahoma_tornado", "Tornado", "Natural_Hazard"),
+    "2013_oklahoma_tornado": ("2013_oklahoma_tornado", "Tornado", "Natural_Hazard"),
+    "2013_queensland_floods-ontopic": ("2013_queensland_floods", "Flood", "Natural_Hazard"),
+    "2013_queensland_floods": ("2013_queensland_floods", "Flood", "Natural_Hazard"),
+    "2013_west_texas": ("2013_west_texas", "Industrial_Explosion", "Human_Induced"),
+    "2013_west-texas_explosion": ("2013_west_texas", "Industrial_Explosion", "Human_Induced"),
 
     # CrisisLex T26 (26 events)
-    "2012_colorado_wildfires": ("2012_colorado_wildfires", "Wildfire"),
-    "2012_costa-rica_earthquake": ("2012_costa_rica_earthquake", "Earthquake"),
-    "2012_guatemala_earthquake": ("2012_guatemala_earthquake", "Earthquake"),
-    "2012_italy_earthquakes": ("2012_italy_earthquakes", "Earthquake"),
-    "2012_philipinnes_floods": ("2012_philippines_floods", "Flood"),
-    "2012_philippines_typhoon-pablo": ("2012_philippines_typhoon_pablo", "Hurricane"),
-    "2012_venezuela_refinery-explosion": ("2012_venezuela_refinery_explosion", "Wildfire"),
-    "2013_australia_bushfire": ("2013_australia_bushfire", "Wildfire"),
-    "2013_bangladesh_savar-building-collapse": ("2013_bangladesh_savar_building_collapse", "Earthquake"),
-    "2013_bohol_earthquake": ("2013_bohol_earthquake", "Earthquake"),
-    "2013_brazil_nightclub-fire": ("2013_brazil_nightclub_fire", "Wildfire"),
-    "2013_canada_lac-megantic-train-crash": ("2013_canada_lac_megantic_train_crash", "Wildfire"),
-    "2013_colorado_floods": ("2013_colorado_floods", "Flood"),
-    "2013_glasgow_helicopter-crash": ("2013_glasgow_helicopter_crash", "Earthquake"),
-    "2013_italy_sardinia": ("2013_italy_sardinia_floods", "Flood"),
-    "2013_la_airport-shootings": ("2013_la_airport_shootings", "Earthquake"),
-    "2013_manila_floods": ("2013_manila_floods", "Flood"),
-    "2013_ny_train-crash": ("2013_ny_train_crash", "Earthquake"),
-    "2013_phillipines_typhoon-yolanda": ("2013_philippines_typhoon_yolanda", "Hurricane"),
-    "2013_queensland_floods": ("2013_queensland_floods", "Flood"),
-    "2013_russia_meteor_en-mixed": ("2013_russia_meteor", "Earthquake"),
-    "2013_singapore_haze": ("2013_singapore_haze", "Wildfire"),
-    "2013_spain_train-crash_en-mixed": ("2013_spain_train_crash", "Earthquake"),
+    "2012_colorado_wildfires": ("2012_colorado_wildfires", "Wildfire", "Natural_Hazard"),
+    "2012_costa-rica_earthquake": ("2012_costa_rica_earthquake", "Earthquake", "Natural_Hazard"),
+    "2012_guatemala_earthquake": ("2012_guatemala_earthquake", "Earthquake", "Natural_Hazard"),
+    "2012_italy_earthquakes": ("2012_italy_earthquakes", "Earthquake", "Natural_Hazard"),
+    "2012_philipinnes_floods": ("2012_philippines_floods", "Flood", "Natural_Hazard"),
+    "2012_philippines_typhoon-pablo": ("2012_philippines_typhoon_pablo", "Hurricane", "Natural_Hazard"),
+    "2012_venezuela_refinery-explosion": ("2012_venezuela_refinery_explosion", "Industrial_Explosion", "Human_Induced"),
+    "2013_australia_bushfire": ("2013_australia_bushfire", "Wildfire", "Natural_Hazard"),
+    "2013_bangladesh_savar-building-collapse": ("2013_bangladesh_savar_building_collapse", "Structural_Collapse", "Human_Induced"),
+    "2013_bohol_earthquake": ("2013_bohol_earthquake", "Earthquake", "Natural_Hazard"),
+    "2013_brazil_nightclub-fire": ("2013_brazil_nightclub_fire", "Building_Fire", "Human_Induced"),
+    "2013_canada_lac-megantic-train-crash": ("2013_canada_lac_megantic_train_crash", "Transportation_Crash", "Human_Induced"),
+    "2013_colorado_floods": ("2013_colorado_floods", "Flood", "Natural_Hazard"),
+    "2013_glasgow_helicopter-crash": ("2013_glasgow_helicopter_crash", "Transportation_Crash", "Human_Induced"),
+    "2013_italy_sardinia": ("2013_italy_sardinia_floods", "Flood", "Natural_Hazard"),
+    "2013_la_airport-shootings": ("2013_la_airport_shootings", "Shooting", "Human_Induced"),
+    "2013_manila_floods": ("2013_manila_floods", "Flood", "Natural_Hazard"),
+    "2013_ny_train-crash": ("2013_ny_train_crash", "Transportation_Crash", "Human_Induced"),
+    "2013_phillipines_typhoon-yolanda": ("2013_philippines_typhoon_yolanda", "Hurricane", "Natural_Hazard"),
+    "2013_queensland_floods": ("2013_queensland_floods", "Flood", "Natural_Hazard"),
+    "2013_russia_meteor_en-mixed": ("2013_russia_meteor", "Meteor_Impact", "Extraterrestrial"),
+    "2013_singapore_haze": ("2013_singapore_haze", "Wildfire", "Natural_Hazard"),
+    "2013_spain_train-crash_en-mixed": ("2013_spain_train_crash", "Transportation_Crash", "Human_Induced"),
 
     # CrisisNLP (19 events across crisisnlp-cf and crisisnlp-volunteers)
-    "2013_pakistan_earthquake": ("2013_pakistan_earthquake", "Earthquake"),
-    "2014_california_earthquake": ("2014_california_earthquake", "Earthquake"),
-    "2014_chile_earthquake": ("2014_chile_earthquake", "Earthquake"),
-    "2014_chile_earthquake_esp": ("2014_chile_earthquake", "Earthquake"),
-    "2014_india_floods": ("2014_india_floods", "Flood"),
-    "2014_mexico_hurricane-odile": ("2014_mexico_hurricane_odile", "Hurricane"),
-    "2014_middle-east_respiratory-syndrome": ("2014_middle_east_respiratory_syndrome", "Flood"),
-    "2014_pakistan_floods": ("2014_pakistan_floods", "Flood"),
-    "2014_philippines_typhoon": ("2014_philippines_typhoon", "Hurricane"),
-    "2014_philippines_typhoon-hagupit": ("2014_philippines_typhoon_hagupit", "Hurricane"),
-    "2014_worldwide_ebola": ("2014_worldwide_ebola", "Flood"),
-    "2015_nepal_earthquake": ("2015_nepal_earthquake", "Earthquake"),
-    "2015_vanuatu_cyclone": ("2015_vanuatu_cyclone", "Hurricane"),
-    "2015_vanuatu_cyclone-pam": ("2015_vanuatu_cyclone_pam", "Hurricane"),
-    "2014-2015_worldwide_landslides": ("2014_2015_worldwide_landslides", "Flood"),
-    "2014_iceland_volcano": ("2014_iceland_volcano", "Earthquake"),
-    "2014_malaysia_airline": ("2014_malaysia_airline", "Earthquake"),
+    "2013_pakistan_earthquake": ("2013_pakistan_earthquake", "Earthquake", "Natural_Hazard"),
+    "2014_california_earthquake": ("2014_california_earthquake", "Earthquake", "Natural_Hazard"),
+    "2014_chile_earthquake": ("2014_chile_earthquake", "Earthquake", "Natural_Hazard"),
+    "2014_chile_earthquake_esp": ("2014_chile_earthquake", "Earthquake", "Natural_Hazard"),
+    "2014_india_floods": ("2014_india_floods", "Flood", "Natural_Hazard"),
+    "2014_mexico_hurricane-odile": ("2014_mexico_hurricane_odile", "Hurricane", "Natural_Hazard"),
+    "2014_middle-east_respiratory-syndrome": ("2014_middle_east_respiratory_syndrome", "Epidemic", "Health_Emergency"),
+    "2014_pakistan_floods": ("2014_pakistan_floods", "Flood", "Natural_Hazard"),
+    "2014_philippines_typhoon": ("2014_philippines_typhoon", "Hurricane", "Natural_Hazard"),
+    "2014_philippines_typhoon-hagupit": ("2014_philippines_typhoon_hagupit", "Hurricane", "Natural_Hazard"),
+    "2014_worldwide_ebola": ("2014_worldwide_ebola", "Epidemic", "Health_Emergency"),
+    "2015_nepal_earthquake": ("2015_nepal_earthquake", "Earthquake", "Natural_Hazard"),
+    "2015_vanuatu_cyclone": ("2015_vanuatu_cyclone", "Hurricane", "Natural_Hazard"),
+    "2015_vanuatu_cyclone-pam": ("2015_vanuatu_cyclone_pam", "Hurricane", "Natural_Hazard"),
+    "2014-2015_worldwide_landslides": ("2014_2015_worldwide_landslides", "Landslide", "Natural_Hazard"),
+    "2014_iceland_volcano": ("2014_iceland_volcano", "Volcano", "Natural_Hazard"),
+    "2014_malaysia_airline": ("2014_malaysia_airline", "Transportation_Crash", "Human_Induced"),
 }
 
 
@@ -211,7 +213,12 @@ def derive_derived_labels(label_hum: str, crisis_type: str):
         return "not_humanitarian", "not_humanitarian", "Not_Crisis_period"
     lbl_useful = "useful"
     lbl_urgent = "not_urgent" if label_hum == "rescue_volunteering_or_donation_effort" else "urgent"
-    lbl_sudden = "Sudden_Crisis" if crisis_type in ("Earthquake", "Wildfire") else "Non_Sudden_Crisis"
+    sudden_types = (
+        "Earthquake", "Wildfire", "Terrorism", "Industrial_Explosion",
+        "Transportation_Crash", "Structural_Collapse", "Building_Fire",
+        "Shooting", "Meteor_Impact", "Volcano", "Tornado"
+    )
+    lbl_sudden = "Sudden_Crisis" if crisis_type in sudden_types else "Non_Sudden_Crisis"
     return lbl_useful, lbl_urgent, lbl_sudden
 
 
@@ -422,7 +429,7 @@ def ingest_all_datasets(output_parquet=OUT_PARQUET, output_csv_gz=OUT_CSV_GZ) ->
                 continue
 
             ev_raw = str(rec["event"])
-            canon_event, crisis_type = EVENT_METADATA[ev_raw]
+            canon_event, crisis_type, hazard_domain = EVENT_METADATA[ev_raw]
             seen_tweet_ids.add(tid)
             seen_date_text.add(dt_key)
 
@@ -435,6 +442,7 @@ def ingest_all_datasets(output_parquet=OUT_PARQUET, output_csv_gz=OUT_CSV_GZ) ->
                 "Date": date_str,
                 "Event_Name": canon_event,
                 "Crisis_Type": crisis_type,
+                "Hazard_Domain": hazard_domain,
                 "Source_Dataset": src_dataset,
                 "label_humanitarian": label_hum,
                 "label_urgent": lbl_urgent,
@@ -451,7 +459,7 @@ def ingest_all_datasets(output_parquet=OUT_PARQUET, output_csv_gz=OUT_CSV_GZ) ->
 
     # Reorder columns strictly according to interface contract
     cols_order = [
-        "tweet_id", "Text", "Date", "Event_Name", "Crisis_Type",
+        "tweet_id", "Text", "Date", "Event_Name", "Crisis_Type", "Hazard_Domain",
         "Source_Dataset", "label_humanitarian", "label_urgent",
         "label_useful", "label_sudden"
     ]
@@ -490,9 +498,13 @@ def ingest_all_datasets(output_parquet=OUT_PARQUET, output_csv_gz=OUT_CSV_GZ) ->
     for src, count in df_full["Source_Dataset"].value_counts().items():
         print(f"  - {src:16s}: {count:7,} ({count / len(df_full) * 100:5.2f}%)")
 
+    print("\n[Distribution: Hazard Domain]")
+    for hd, count in df_full["Hazard_Domain"].value_counts().items():
+        print(f"  - {hd:20s}: {count:7,} ({count / len(df_full) * 100:5.2f}%)")
+
     print("\n[Distribution: Crisis Type (Macro Hazards)]")
     for ct, count in df_full["Crisis_Type"].value_counts().items():
-        print(f"  - {ct:16s}: {count:7,} ({count / len(df_full) * 100:5.2f}%)")
+        print(f"  - {ct:24s}: {count:7,} ({count / len(df_full) * 100:5.2f}%)")
 
     print("\n[Distribution: label_humanitarian (10 Classes)]")
     for lh, count in df_full["label_humanitarian"].value_counts().items():

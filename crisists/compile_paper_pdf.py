@@ -7,7 +7,7 @@ Generates a publication-grade PDF report with ReportLab:
 - Embedded 300 DPI figures with centered captions
 - Complete mathematical hypotheses, variable classification, pipeline audit,
   expanded empirical benchmarks (N = 17,628 & N = 76,481), LOEO-CV, and Q1 enhancements.
-Strict length: Publication-grade 6-page comprehensive research paper.
+Strict length: Publication-grade 5-page comprehensive research paper.
 """
 import os
 import sys

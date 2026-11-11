@@ -35,8 +35,8 @@
 |---|------|-------|-------------|--------|
 | 1 | M1: Dataset Ingestion & Schema Alignment | Ingest HumAID, CrisisLex (T6 & T26), CrisisMMD, CrisisNLP; decode timestamps; map to unified schema; deduplicate | none | DONE |
 | 2 | M2: Hourly 11-Channel ERA5 Weather Alignment | Download 2012-2015 ERA5 reanalysis via Open-Meteo for new events; standardize; construct $(5, 11)$ sliding window tensors; build expanded dataset | M1 | DONE |
-| 3 | M3: Model Evaluation Rerun & Comparative Benchmarking | Run 5-Fold CV and LOEO-CV on expanded corpus across 4 tasks; produce Markdown table and JSON summary comparing vs 76,481 baseline | M2 | IN_PROGRESS |
-| 4 | M4: Adversarial Review & Forensic Audit | Reviewers, Challengers, and Forensic Auditor verify pipeline authenticity and metric consistency | M3 | PLANNED |
+| 3 | M3: Model Evaluation Rerun & Comparative Benchmarking | Run 5-Fold CV and LOEO-CV on expanded corpus across 4 tasks; produce Markdown table and JSON summary comparing vs 76,481 baseline | M2 | DONE |
+| 4 | M4: Adversarial Review & Forensic Audit | Reviewers, Challengers, and Forensic Auditor verify pipeline authenticity and metric consistency | M3 | DONE |
 
 ## Interface Contracts
 
