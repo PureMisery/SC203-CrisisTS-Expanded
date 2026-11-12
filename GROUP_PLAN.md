@@ -10,9 +10,11 @@ The group question is whether additional semantic context helps **image restorat
 
 | Branch | Owner | Deliverable |
 | --- | --- | --- |
-| `main` | Quỳnh Anh | Stable reproduced CM4IR baseline and integration decisions. |
+| `main` | Group | Stable reproduced CM4IR baseline and integration target. |
+| `codex/anh-core` | Quỳnh Anh | CM4IR core experiments, shared run interface, and integration decisions. |
 | `codex/phuc-context` | Phúc | Context input, conditioning mechanism, examples, ablation with context on/off, and run instructions. Preserve the baseline path. |
 | `codex/long-evaluation` | Long | Fixed evaluation manifest, paired baseline/variant runner, PSNR and LPIPS plus region-focused metrics for inpainting, per-image results, summary with uncertainty, and integrity checks. |
+| `codex/nguyen-research` | Nguyên | Research note and a reproducible, bounded proposal for a contribution to the CM4IR image task; keep CrisisTS code and results separate unless an image-specific interface is established. |
 
 Nguyên's CrisisTS repository studies disaster messages and meteorological data. Its labels, inputs, and metric targets do not align with CM4IR image restoration. Keep that work as a separate research track unless the group defines a concrete image-restoration contribution.
 
@@ -28,7 +30,7 @@ Nguyên's CrisisTS repository studies disaster messages and meteorological data.
 ```bash
 git clone https://github.com/winanhle/CS203-GROUP-9.git
 cd CS203-GROUP-9
-git switch codex/phuc-context  # or codex/long-evaluation
+git switch codex/phuc-context  # or your assigned branch above
 # work, commit, then push your branch
 git push -u origin HEAD
 ```
