@@ -1,0 +1,83 @@
+redding
+merced
+santa monica
+rialto
+downey
+lake forest
+glendale
+santa barbara
+tracy
+carson
+visalia
+thousand oaks
+moreno valley
+oceanside
+san francisco
+inglewood
+indio
+simi valley
+escondido
+elk grove
+burbank
+clovis
+newport beach
+fresno
+chula vista
+el monte
+ventura
+mission viejo
+roseville
+jurupa valley
+berkeley
+daly city
+chino
+hayward
+victorville
+compton
+hemet
+corona
+temecula
+el cajon
+irvine
+menifee
+costa mesa
+manteca
+antioch
+san mateo
+los angeles
+vallejo
+palmdale
+fontana
+south gate
+hesperia
+rancho cucamonga
+anaheim
+livermore
+huntington beach
+san ramon
+san bernardino
+sacramento
+concord
+west covina
+salinas
+modesto
+stockton
+whittier
+citrus heights
+ontario
+santa maria
+san jose
+bakersfield
+oxnard
+carlsbad
+murrieta
+santa ana
+santa clarita
+torrance
+vista
+garden grove
+fullerton
+norwalk
+san leandro
+fremont
+vacaville

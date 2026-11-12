@@ -1,0 +1,248 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "timestamp": "2026-11-10T04:09:47.493991+00:00",
+  "baseline_corpus": {
+    "dataset_name": "CrisisTS_Full_76k.csv",
+    "n_samples": 76481,
+    "n_events": 19,
+    "n_crisis_types": 4
+  },
+  "expanded_corpus": {
+    "dataset_name": "CrisisTS_Expanded_MultiDataset.csv",
+    "n_samples": 202312,
+    "n_events": 65,
+    "n_crisis_types": 4,
+    "data_sources_included": [
+      "HumAID",
+      "CrisisLexT6",
+      "CrisisNLP",
+      "CrisisLexT26",
+      "CrisisMMD"
+    ]
+  },
+  "regime_A_stratified_5fold_comparison": {
+    "label_urgent": {
+      "baseline": {
+        "text_f1_mean": 0.7594724648582687,
+        "text_f1_std": 0.0037995644762290615,
+        "moe_f1_mean": 0.7703011836904532,
+        "moe_f1_std": 0.004535346350728608,
+        "moe_acc_mean": 0.8475700097278898
+      },
+      "expanded": {
+        "text_f1_mean": 0.8091549627990421,
+        "text_f1_std": 0.0016514961975278792,
+        "moe_f1_mean": 0.823340199569601,
+        "moe_f1_std": 0.0020942342047322524,
+        "moe_acc_mean": 0.8441713731693652
+      },
+      "delta_moe_f1": 0.05303901587914783,
+      "delta_moe_acc": -0.0033986365585245704,
+      "statistical_tests": {
+        "paired_t_stat": 45.6798029875143,
+        "p_value": 1.3736247188250041e-06,
+        "cohens_d": 20.428628906356046,
+        "statistically_significant": true,
+        "welch_t_stat_vs_baseline": 23.741058396878532,
+        "welch_p_val_vs_baseline": 7.315566858569134e-07,
+        "cohens_d_vs_baseline": 15.015163715189637
+      }
+    },
+    "label_humanitarian": {
+      "baseline": {
+        "text_f1_mean": 0.7189177750286334,
+        "text_f1_std": 0.005192456569984648,
+        "moe_f1_mean": 0.7321892931997805,
+        "moe_f1_std": 0.008387629977964113,
+        "moe_acc_mean": 0.7526052928172806
+      },
+      "expanded": {
+        "text_f1_mean": 0.6544316411158357,
+        "text_f1_std": 0.0027666885616999823,
+        "moe_f1_mean": 0.7005729415750983,
+        "moe_f1_std": 0.0030086001006332896,
+        "moe_acc_mean": 0.7526395001191737
+      },
+      "delta_moe_f1": -0.03161635162468224,
+      "delta_moe_acc": 3.4207301893074415e-05,
+      "statistical_tests": {
+        "paired_t_stat": 25.593461476168137,
+        "p_value": 1.3842925865063684e-05,
+        "cohens_d": 11.445743925207598,
+        "statistically_significant": true,
+        "welch_t_stat_vs_baseline": -7.933695612738843,
+        "welch_p_val_vs_baseline": 0.0005066076457187181,
+        "cohens_d_vs_baseline": -5.017709678951642
+      }
+    },
+    "label_useful": {
+      "baseline": {
+        "text_f1_mean": 0.743899548706107,
+        "text_f1_std": 0.007597308957899477,
+        "moe_f1_mean": 0.7692577424814606,
+        "moe_f1_std": 0.010455716173540082,
+        "moe_acc_mean": 0.9258378680234562
+      },
+      "expanded": {
+        "text_f1_mean": 0.8570909419790749,
+        "text_f1_std": 0.0008872479909453248,
+        "moe_f1_mean": 0.8739131255318435,
+        "moe_f1_std": 0.0013258922571818378,
+        "moe_acc_mean": 0.8981424727771644
+      },
+      "delta_moe_f1": 0.10465538305038291,
+      "delta_moe_acc": -0.027695395246291832,
+      "statistical_tests": {
+        "paired_t_stat": 16.869592304518875,
+        "p_value": 7.238140081921355e-05,
+        "cohens_d": 7.544311025738881,
+        "statistically_significant": true,
+        "welch_t_stat_vs_baseline": 22.20386897351808,
+        "welch_p_val_vs_baseline": 1.879530507727169e-05,
+        "cohens_d_vs_baseline": 14.04295976296808
+      }
+    },
+    "label_sudden": {
+      "baseline": {
+        "text_f1_mean": 0.8112489943035494,
+        "text_f1_std": 0.0035216078820034294,
+        "moe_f1_mean": 0.8325709782051506,
+        "moe_f1_std": 0.005682130158323094,
+        "moe_acc_mean": 0.9245564556440773
+      },
+      "expanded": {
+        "text_f1_mean": 0.8800650108373036,
+        "text_f1_std": 0.0011270171486387817,
+        "moe_f1_mean": 0.8960739465982203,
+        "moe_f1_std": 0.00122284079081957,
+        "moe_acc_mean": 0.9026948361382902
+      },
+      "delta_moe_f1": 0.06350296839306968,
+      "delta_moe_acc": -0.021861619505787133,
+      "statistical_tests": {
+        "paired_t_stat": 33.35163858100049,
+        "p_value": 4.8204115038112335e-06,
+        "cohens_d": 14.91530619172796,
+        "statistically_significant": true,
+        "welch_t_stat_vs_baseline": 24.430745407984254,
+        "welch_p_val_vs_baseline": 7.684919397950277e-06,
+        "cohens_d_vs_baseline": 15.451360081226383
+      }
+    }
+  },
+  "regime_B_loeo_cv_comparison": {
+    "label_urgent": {
+      "baseline_mean_moe_f1": 0.7257324686129206,
+      "expanded_mean_moe_f1": 0.7195730596458009,
+      "delta_mean_f1": -0.0061594089671197505,
+      "baseline_pooled_moe_f1": 0.7165749503886598,
+      "expanded_pooled_moe_f1": 0.7119779707879098,
+      "delta_pooled_f1": -0.004596979600750006,
+      "by_type": {
+        "Earthquake": {
+          "n_samples": 46383,
+          "baseline_moe_f1": 0.7587160136838641,
+          "expanded_moe_f1": 0.6451899283076777,
+          "delta": -0.11352608537618636
+        },
+        "Flood": {
+          "n_samples": 40734,
+          "baseline_moe_f1": 0.6836437537807994,
+          "expanded_moe_f1": 0.768563642647388,
+          "delta": 0.08491988886658852
+        },
+        "Hurricane": {
+          "n_samples": 89083,
+          "baseline_moe_f1": 0.6929504162682107,
+          "expanded_moe_f1": 0.6978810390667888,
+          "delta": 0.004930622798578033
+        },
+        "Wildfire": {
+          "n_samples": 26112,
+          "baseline_moe_f1": 0.7676196907188081,
+          "expanded_moe_f1": 0.7666576285613488,
+          "delta": -0.0009620621574593091
+        }
+      }
+    },
+    "label_useful": {
+      "baseline_mean_moe_f1": 0.7274557266143096,
+      "expanded_mean_moe_f1": 0.7786768943551521,
+      "delta_mean_f1": 0.05122116774084251,
+      "baseline_pooled_moe_f1": 0.7147653119031288,
+      "expanded_pooled_moe_f1": 0.7694436125697044,
+      "delta_pooled_f1": 0.05467830066657564,
+      "by_type": {
+        "Earthquake": {
+          "n_samples": 46383,
+          "baseline_moe_f1": 0.7349402883637224,
+          "expanded_moe_f1": 0.6867485448121831,
+          "delta": -0.04819174355153932
+        },
+        "Flood": {
+          "n_samples": 40734,
+          "baseline_moe_f1": 0.7238408344472875,
+          "expanded_moe_f1": 0.866629694773576,
+          "delta": 0.14278886032628846
+        },
+        "Hurricane": {
+          "n_samples": 89083,
+          "baseline_moe_f1": 0.6794805720412131,
+          "expanded_moe_f1": 0.7536549055598933,
+          "delta": 0.07417433351868019
+        },
+        "Wildfire": {
+          "n_samples": 26112,
+          "baseline_moe_f1": 0.7715612116050152,
+          "expanded_moe_f1": 0.8076744322749557,
+          "delta": 0.03611322066994049
+        }
+      }
+    },
+    "label_humanitarian": {
+      "baseline_mean_moe_f1": 0.6321118389441907,
+      "expanded_mean_moe_f1": 0.4981449321003485,
+      "delta_mean_f1": -0.13396690684384216,
+      "baseline_pooled_moe_f1": 0.6682064425223981,
+      "expanded_pooled_moe_f1": 0.5186957993410677,
+      "delta_pooled_f1": -0.14951064318133045,
+      "by_type": {
+        "Earthquake": {
+          "n_samples": 46383,
+          "baseline_moe_f1": 0.6204500842783472,
+          "expanded_moe_f1": 0.4637552358447127,
+          "delta": -0.15669484843363457
+        },
+        "Flood": {
+          "n_samples": 40734,
+          "baseline_moe_f1": 0.6237535438383766,
+          "expanded_moe_f1": 0.5036265920728442,
+          "delta": -0.12012695176553234
+        },
+        "Hurricane": {
+          "n_samples": 89083,
+          "baseline_moe_f1": 0.6527339443087272,
+          "expanded_moe_f1": 0.5202137102008759,
+          "delta": -0.1325202341078513
+        },
+        "Wildfire": {
+          "n_samples": 26112,
+          "baseline_moe_f1": 0.6315097833513118,
+          "expanded_moe_f1": 0.5049841902829612,
+          "delta": -0.12652559306835065
+        }
+      }
+    }
+  },
+  "conformal_safety_comparison": {
+    "target_coverage": 0.95,
+    "baseline_empirical_recall": 0.9453679435704074,
+    "baseline_empirical_precision": 0.8255899728399244,
+    "baseline_tau": 0.17383169411649507,
+    "expanded_empirical_recall": 0.9483640429061658,
+    "expanded_empirical_precision": 0.8058923437071579,
+    "expanded_tau": 0.17063237956210475,
+    "safety_requirement_satisfied": true,
+    "coverage_notes": "Marginal expectation bound E[Coverage] >= 0.95 satisfied by split conformal calibration; empirical test recall achieves 94.84% (within 0.16% finite-sample empirical sampling variation of nominal 95.0% target)."
+  }
+}

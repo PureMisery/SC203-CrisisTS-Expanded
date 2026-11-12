@@ -1,0 +1,26 @@
+{
+  "Hurricane": {
+    "Dummy": 0.2599895966330922,
+    "Text_Only": 0.6880489911787434,
+    "Naive_Linear_MM": 0.5250292360497644,
+    "Improved_Invariant_MM": 0.9191155190803478
+  },
+  "Earthquake": {
+    "Dummy": 0.2799650043744532,
+    "Text_Only": 0.5910140261253404,
+    "Naive_Linear_MM": 0.5760278454543024,
+    "Improved_Invariant_MM": 0.9148294730251952
+  },
+  "Wildfire": {
+    "Dummy": 0.4311878597592883,
+    "Text_Only": 0.6180470015383545,
+    "Naive_Linear_MM": 0.23501097404071747,
+    "Improved_Invariant_MM": 0.9309422738167432
+  },
+  "Flood": {
+    "Dummy": 0.4336399474375821,
+    "Text_Only": 0.5501995993738432,
+    "Naive_Linear_MM": 0.5300084773768985,
+    "Improved_Invariant_MM": 0.8352166525063721
+  }
+}
